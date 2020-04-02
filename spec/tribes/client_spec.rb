@@ -6,7 +6,7 @@ RSpec.describe Tribes::Client do
     context 'with no parameter' do
       let(:expected_default) { 'https://tribalwars.net' }
       it { expect { subject }.not_to raise_error }
-      it { expect(subject.base_link).to eq expected_default }
+      it { expect(subject).to have_attributes(base_link: expected_default) }
     end
 
     context 'with parameter given' do
@@ -16,7 +16,7 @@ RSpec.describe Tribes::Client do
         let(:url) { 'https://plemiona.pl' }
 
         it { expect { subject }.not_to raise_error }
-        it { expect(subject.base_link).to eq url }
+        it { expect(subject).to have_attributes(base_link: url) }
       end
 
       context 'invalid url' do
