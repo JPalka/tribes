@@ -9,3 +9,6 @@
 
 # rspec failure tracking
 .rspec_status
+
+# exclude gemfile.lock for gem repo
+gemfile.lock
