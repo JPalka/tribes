@@ -136,4 +136,35 @@ RSpec.describe Tribes::Client do
     end
   end
 
+  describe '#village_list' do
+    let(:client) { described_class.new }
+    let(:villages) do
+      "1,%2B+KINGS+CASTLE+%2B,500,476,267865,1533,0\n"\
+      "2,001,502,472,9828389,3170,0\n"\
+      "3,335D,507,482,11295245,2388,0\n"
+    end
+    before do
+      allow(client).to receive(:world_list).and_return(
+        { 'en107' => 'https://en107.tribalwars.net',
+          'en110' => 'https://en110.tribalwars.net',
+          'en111' => 'https://en111.tribalwars.net',
+          'en112' => 'https://en112.tribalwars.net',
+          'en113' => 'https://en113.tribalwars.net',
+          'enp8' => 'https://enp8.tribalwars.net' }
+      )
+      @stub = stub_request(:get, 'https://en110.tribalwars.net/map/village.txt').to_return(
+        status: 200,
+        body: villages
+      )
+      client.world = 'en110'
+    end
+    subject { client.village_list }
+    it do
+      expect(subject).to eq [
+        { id: 1, name: '%2B+KINGS+CASTLE+%2B', x: 500, y: 476, player_id: 267_865, points: 1533, rank: 0 },
+        { id: 2, name: '001', x: 502, y: 472, player_id: 9_828_389, points: 3170, rank: 0 },
+        { id: 3, name: '335D', x: 507, y: 482, player_id: 11_295_245, points: 2388, rank: 0 }
+      ]
+    end
+  end
 end
