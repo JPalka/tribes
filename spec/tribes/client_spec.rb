@@ -27,6 +27,34 @@ RSpec.describe Tribes::Client do
     end
   end
 
+  describe '#world=' do
+    let(:client) { described_class.new }
+    before do
+      allow(client).to receive(:world_list).and_return(
+        { 'en107' => 'https://en107.tribalwars.net',
+          'en110' => 'https://en110.tribalwars.net',
+          'en111' => 'https://en111.tribalwars.net',
+          'en112' => 'https://en112.tribalwars.net',
+          'en113' => 'https://en113.tribalwars.net',
+          'enp8' => 'https://enp8.tribalwars.net' }
+      )
+    end
+
+    context 'when world exist on the server' do
+      subject { client.world = 'en110' }
+      it { expect { subject }.not_to raise_error }
+      it { expect { subject }.to change { client.world }.to 'en110' }
+    end
+
+    context 'when world does not exist on the server' do
+      subject { client.world = 'yoloworld' }
+
+      let(:error_msg) { 'World not found: yoloworld' }
+
+      it { expect { subject }.to raise_error(ArgumentError, error_msg) }
+    end
+  end
+
   describe '#world_list' do
     subject { described_class.new.world_list }
 

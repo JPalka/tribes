@@ -2,7 +2,7 @@
 
 module Tribes
   class Client
-    attr_reader :base_link
+    attr_reader :base_link, :world
 
     def initialize(base_url = 'https://tribalwars.net')
       begin
@@ -16,6 +16,12 @@ module Tribes
 
     def world_list
       @world_list ||= download_world_list
+    end
+
+    def world=(world_id)
+      raise ArgumentError, "World not found: #{world_id}" unless world_list.key?(world_id)
+
+      @world = world_id
     end
 
     private
