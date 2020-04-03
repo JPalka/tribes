@@ -21,9 +21,11 @@ module Tribes
     private
 
     def download_world_list
-      world_links = Faraday.get(base_link + '/backend/get_servers.php')
-                           .body
-                           .scan(%r{https:\/\/.[^"]+})
+      connection = Faraday.new(url: base_link) do |faraday|
+        faraday.use FaradayMiddleware::FollowRedirects
+      end
+      response = connection.get(base_link + '/backend/get_servers.php')
+      world_links = response.body.scan(%r{https:\/\/.[^"]+})
       world_links.each_with_object({}) do |link, hash|
         hash[link.scan(%r{(?<=\/{2}).[^\.]+})[0]] = link
       end
