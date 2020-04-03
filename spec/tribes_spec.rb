@@ -5,10 +5,6 @@ RSpec.describe Tribes do
     expect(Tribes::VERSION).not_to be nil
   end
 
-  it 'does something useful' do
-    expect(false).to eq(true)
-  end
-
   it 'test webmock external request blocking' do
     uri = URI('https://api.github.com/repos/thoughtbot/factory_girl/contributors')
 
