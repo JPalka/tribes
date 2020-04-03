@@ -26,4 +26,46 @@ RSpec.describe Tribes::Client do
       end
     end
   end
+
+  describe '#world_list' do
+    subject { described_class.new.world_list }
+
+    before do
+      @stub = stub_request(:get, 'https://tribalwars.net/backend/get_servers.php').to_return(
+        status: 200,
+        body: 'a:12:{s:5:"en107";s:28:"https://en107.tribalwars.net";s:5:"en110";s:28:"https://en110.tribalwars.net";s:5:"en111";s:28:"https://en111.tribalwars.net";s:5:"en112";s:28:"https://en112.tribalwars.net";s:5:"en113";s:28:"https://en113.tribalwars.net";s:4:"enp8";s:27:"https://enp8.tribalwars.net";}',
+        headers: {}
+      )
+    end
+
+    context 'when remote server exists' do
+      let(:expected_result) do
+        { 'en107' => 'https://en107.tribalwars.net',
+          'en110' => 'https://en110.tribalwars.net',
+          'en111' => 'https://en111.tribalwars.net',
+          'en112' => 'https://en112.tribalwars.net',
+          'en113' => 'https://en113.tribalwars.net',
+          'enp8' => 'https://enp8.tribalwars.net' }
+      end
+      it { expect(subject).to be_a(Hash) }
+      it { expect(subject).to eq(expected_result) }
+      it 'is memoized' do
+        2.times { subject }
+        expect(@stub).to have_been_requested.times(1)
+        expect(subject).to eq(expected_result)
+      end
+    end
+
+    context 'remote does not exist' do
+      before do
+        @stub = stub_request(:get, 'http://nositesherlock/backend/get_servers.php').to_return(
+          status: 404
+        )
+      end
+      subject { described_class.new('http://nositesherlock').world_list }
+
+      it { expect(subject).to be_a(Hash) }
+      it { expect(subject).to eq({}) }
+    end
+  end
 end
