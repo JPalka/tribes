@@ -167,4 +167,40 @@ RSpec.describe Tribes::Client do
       ]
     end
   end
+
+  describe '#tribe_list' do
+    let(:client) { described_class.new }
+    let(:tribes) do
+      "2,Zini,Zanzo,1,1,486,486,169\n"\
+      "7,Lions+of+the+Night,Lions,3,3,4571,4571,111\n"\
+      "9,Cerberus,Hades,11,32,147555,147555,31\n"
+    end
+    before do
+      allow(client).to receive(:world_list).and_return(
+        { 'en107' => 'https://en107.tribalwars.net',
+          'en110' => 'https://en110.tribalwars.net',
+          'en111' => 'https://en111.tribalwars.net',
+          'en112' => 'https://en112.tribalwars.net',
+          'en113' => 'https://en113.tribalwars.net',
+          'enp8' => 'https://enp8.tribalwars.net' }
+      )
+      @stub = stub_request(:get, 'https://en110.tribalwars.net/map/ally.txt').to_return(
+        status: 200,
+        body: tribes
+      )
+      client.world = 'en110'
+    end
+    subject { client.tribe_list }
+
+    it do
+      expect(subject).to eq [
+        { id: 2, name: 'Zini', tag: 'Zanzo', member_count: 1, village_count: 1,
+          points_top: 486, points: 486, rank: 169 },
+        { id: 7, name: 'Lions+of+the+Night', tag: 'Lions', member_count: 3, village_count: 3,
+          points_top: 4571, points: 4571, rank: 111 },
+        { id: 9, name: 'Cerberus', tag: 'Hades', member_count: 11, village_count: 32,
+          points_top: 147_555, points: 147_555, rank: 31 }
+      ]
+    end
+  end
 end

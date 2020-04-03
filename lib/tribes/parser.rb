@@ -15,5 +15,14 @@ module Tribes
           player_id: player_id.to_i, points: points.to_i, rank: rank.to_i }
       end
     end
+
+    def parse_tribe_list(csv_content)
+      csv_content.split(' ').map do |line|
+        id, name, tag, member_count, village_count, points_top, points, rank = line.split(',')
+        { id: id.to_i, name: name, tag: tag, member_count: member_count.to_i,
+          village_count: village_count.to_i, points_top: points_top.to_i,
+          points: points.to_i, rank: rank.to_i }
+      end
+    end
   end
 end

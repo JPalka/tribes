@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'tribes/version'
+require 'tribes/parser'
 require 'tribes/client'
 require 'uri'
 require 'faraday'

@@ -3,7 +3,7 @@
 module Tribes
   class Client
     attr_reader :base_link, :world
-    include Parser
+    include Tribes::Parser
 
     def initialize(base_url = 'https://tribalwars.net')
       begin
@@ -35,6 +35,10 @@ module Tribes
       @village_list ||= download_village_list
     end
 
+    def tribe_list
+      @tribe_list ||= download_tribe_list
+    end
+
     private
 
     def download_player_list
@@ -51,6 +55,14 @@ module Tribes
       end
       response = connection.get('/map/village.txt')
       parse_village_list(response.body)
+    end
+
+    def download_tribe_list
+      connection = Faraday.new(url: world_list[world]) do |faraday|
+        faraday.use FaradayMiddleware::FollowRedirects
+      end
+      response = connection.get('/map/ally.txt')
+      parse_tribe_list(response.body)
     end
 
     def download_world_list
