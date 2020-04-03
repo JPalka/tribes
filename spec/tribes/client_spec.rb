@@ -96,4 +96,44 @@ RSpec.describe Tribes::Client do
       it { expect(subject).to eq({}) }
     end
   end
+
+  describe '#player_list' do
+    let(:client) { described_class.new }
+    let(:players) do
+      "898,piratedan,1023,1,1347,1644\n"\
+      "7297,darkx,85,3,6594,88\n"\
+      "10083,zora+ostar,1060,1,916,2569\n"\
+      "15035,DrakenZ,328,1,506,4317\n"\
+      "17977,Tyrungal,104,1,1158,1961\n"\
+      "24949,FeudalKnight,0,1,242,6836"
+    end
+    before do
+      allow(client).to receive(:world_list).and_return(
+        { 'en107' => 'https://en107.tribalwars.net',
+          'en110' => 'https://en110.tribalwars.net',
+          'en111' => 'https://en111.tribalwars.net',
+          'en112' => 'https://en112.tribalwars.net',
+          'en113' => 'https://en113.tribalwars.net',
+          'enp8' => 'https://enp8.tribalwars.net' }
+      )
+      @stub = stub_request(:get, 'https://en110.tribalwars.net/map/player.txt').to_return(
+        status: 200,
+        body: players
+      )
+      client.world = 'en110'
+    end
+    subject { client.player_list }
+
+    it do
+      expect(subject).to eq [
+        { id: 898, name: 'piratedan', tribe_id: 1023, village_count: 1, points: 1347, rank: 1644 },
+        { id: 7297, name: 'darkx', tribe_id: 85, village_count: 3, points: 6594, rank: 88 },
+        { id: 10_083, name: 'zora+ostar', tribe_id: 1060, village_count: 1, points: 916, rank: 2569 },
+        { id: 15_035, name: 'DrakenZ', tribe_id: 328, village_count: 1, points: 506, rank: 4317 },
+        { id: 17_977, name: 'Tyrungal', tribe_id: 104, village_count: 1, points: 1158, rank: 1961 },
+        { id: 24_949, name: 'FeudalKnight', tribe_id: 0, village_count: 1, points: 242, rank: 6836 }
+      ]
+    end
+  end
+
 end

@@ -24,7 +24,19 @@ module Tribes
       @world = world_id
     end
 
+    def player_list
+      @player_list ||= download_player_list
+    end
+
     private
+
+    def download_player_list
+      connection = Faraday.new(url: world_list[world]) do |faraday|
+        faraday.use FaradayMiddleware::FollowRedirects
+      end
+      response = connection.get('/map/player.txt')
+      parse_player_list(response.body)
+    end
 
     def download_world_list
       connection = Faraday.new(url: base_link) do |faraday|
@@ -34,6 +46,14 @@ module Tribes
       world_links = response.body.scan(%r{https:\/\/.[^"]+})
       world_links.each_with_object({}) do |link, hash|
         hash[link.scan(%r{(?<=\/{2}).[^\.]+})[0]] = link
+      end
+    end
+
+    def parse_player_list(content)
+      content.split(' ').map do |line|
+        id, name, tribe_id, village_count, points, rank = line.split(',')
+        { name: name, id: id.to_i, tribe_id: tribe_id.to_i, village_count: village_count.to_i,
+          points: points.to_i, rank: rank.to_i }
       end
     end
   end
