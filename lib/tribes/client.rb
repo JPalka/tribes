@@ -24,6 +24,9 @@ module Tribes
 
       @player_list = nil
       @village_list = nil
+      @connection = Faraday.new(url: world_list[world_id]) do |faraday|
+        faraday.use FaradayMiddleware::FollowRedirects
+      end
       @world = world_id
     end
 
@@ -42,26 +45,17 @@ module Tribes
     private
 
     def download_player_list
-      connection = Faraday.new(url: world_list[world]) do |faraday|
-        faraday.use FaradayMiddleware::FollowRedirects
-      end
-      response = connection.get('/map/player.txt')
+      response = @connection.get('/map/player.txt')
       parse_player_list(response.body)
     end
 
     def download_village_list
-      connection = Faraday.new(url: world_list[world]) do |faraday|
-        faraday.use FaradayMiddleware::FollowRedirects
-      end
-      response = connection.get('/map/village.txt')
+      response = @connection.get('/map/village.txt')
       parse_village_list(response.body)
     end
 
     def download_tribe_list
-      connection = Faraday.new(url: world_list[world]) do |faraday|
-        faraday.use FaradayMiddleware::FollowRedirects
-      end
-      response = connection.get('/map/ally.txt')
+      response = @connection.get('/map/ally.txt')
       parse_tribe_list(response.body)
     end
 
