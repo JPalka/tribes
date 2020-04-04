@@ -6,7 +6,7 @@ require 'tribes/client'
 require 'uri'
 require 'faraday'
 require 'faraday_middleware'
-require 'active_support/core_ext'
+require 'active_support/core_ext/hash'
 
 module Tribes
   class Error < StandardError; end
