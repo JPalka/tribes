@@ -24,5 +24,9 @@ module Tribes
           points: points.to_i, rank: rank.to_i }
       end
     end
+
+    def parse_config(xml_content)
+      Hash.from_xml(xml_content)['config']
+    end
   end
 end

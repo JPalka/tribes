@@ -33,6 +33,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'solargraph', '~> 0.38'
   spec.add_development_dependency 'webmock', '~> 3.8'
 
+  spec.add_runtime_dependency 'activesupport', '~> 6.0'
   spec.add_runtime_dependency 'faraday', '~> 1.0'
   spec.add_runtime_dependency 'faraday_middleware', '~> 1.0'
 end

@@ -42,6 +42,10 @@ module Tribes
       @tribe_list ||= download_tribe_list
     end
 
+    def world_config
+      @world_config ||= download_world_config
+    end
+
     private
 
     def download_player_list
@@ -57,6 +61,11 @@ module Tribes
     def download_tribe_list
       response = @connection.get('/map/ally.txt')
       parse_tribe_list(response.body)
+    end
+
+    def download_world_config
+      response = @connection.get('/interface.php?func=get_config')
+      parse_config(response.body)
     end
 
     def download_world_list

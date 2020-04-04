@@ -203,4 +203,24 @@ RSpec.describe Tribes::Client do
       ]
     end
   end
+
+  describe '#world_config' do
+    let(:client) { described_class.new }
+    let(:config) { File.new('spec/fixtures/xml/world_config.xml').read }
+    before do
+      allow(client).to receive(:world_list).and_return(
+        { 'en107' => 'https://en107.tribalwars.net',
+          'en110' => 'https://en110.tribalwars.net' }
+      )
+      @stub = stub_request(:get, 'https://en110.tribalwars.net/interface.php?func=get_config').to_return(
+        status: 200,
+        body: config
+      )
+      client.world = 'en110'
+    end
+    subject { client.world_config }
+
+    it { expect(subject).to be_a(Hash) }
+    it { expect(subject).not_to be_falsey }
+  end
 end
