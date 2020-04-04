@@ -46,6 +46,10 @@ module Tribes
       @world_config ||= download_world_config
     end
 
+    def building_info
+      @building_info ||= download_building_info
+    end
+
     private
 
     def download_player_list
@@ -65,6 +69,11 @@ module Tribes
 
     def download_world_config
       response = @connection.get('/interface.php?func=get_config')
+      parse_config(response.body)
+    end
+
+    def download_building_info
+      response = @connection.get('/interface.php?func=get_building_info')
       parse_config(response.body)
     end
 
