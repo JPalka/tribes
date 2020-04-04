@@ -2,6 +2,7 @@
 
 require 'tribes/version'
 require 'tribes/parser'
+require 'tribes/configuration'
 require 'tribes/client'
 require 'uri'
 require 'faraday'

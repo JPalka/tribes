@@ -3,6 +3,8 @@
 module Tribes
   class Client
     attr_reader :base_link, :world
+    attr_accessor :configuration
+
     include Tribes::Parser
 
     def initialize(base_url = 'https://tribalwars.net')
@@ -13,6 +15,11 @@ module Tribes
       end
 
       @base_link = base_url
+    end
+
+    def configure
+      @configuration ||= Configuration.new
+      yield(configuration)
     end
 
     def world_list
