@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require "support/shared_contexts/client_class"
 
 RSpec.describe Tribes::Client do
   before do
@@ -8,6 +9,7 @@ RSpec.describe Tribes::Client do
       headers: {}
     )
   end
+  include_context 'client class'
 
   describe '#initialize' do
     let(:expected_attributes) do
