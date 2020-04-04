@@ -2,32 +2,28 @@
 
 module Tribes
   class Client
-    attr_reader :base_link, :world
-    attr_accessor :configuration
-
     include Tribes::Parser
 
-    def initialize(base_url = 'https://tribalwars.net')
-      begin
-        URI.parse(base_url)
-      rescue URI::InvalidURIError
-        raise ArgumentError, 'Argument is not a valid URL'
-      end
+    def initialize(options = {})
+      @configuration = Configuration.new
+      options.each { |option, value| configuration.send("#{option}=", value) }
+    end
 
-      @base_link = base_url
+    def configuration
+      @configuration ||= Configuration.new
     end
 
     def configure
-      @configuration ||= Configuration.new
       yield(configuration)
+      configuration
     end
 
     def world_list
-      @world_list ||= download_world_list
+      configuration.world_list
     end
 
     def world=(world_id)
-      raise ArgumentError, "World not found: #{world_id}" unless world_list.key?(world_id)
+      configuration.current_world = world_id
 
       @player_list = nil
       @village_list = nil
@@ -38,7 +34,6 @@ module Tribes
       @connection = Faraday.new(url: world_list[world_id]) do |faraday|
         faraday.use FaradayMiddleware::FollowRedirects
       end
-      @world = world_id
     end
 
     def player_list
@@ -95,17 +90,6 @@ module Tribes
     def download_unit_info
       response = @connection.get('/interface.php?func=get_unit_info')
       parse_config(response.body)
-    end
-
-    def download_world_list
-      connection = Faraday.new(url: base_link) do |faraday|
-        faraday.use FaradayMiddleware::FollowRedirects
-      end
-      response = connection.get(base_link + '/backend/get_servers.php')
-      world_links = response.body.scan(%r{https:\/\/.[^"]+})
-      world_links.each_with_object({}) do |link, hash|
-        hash[link.scan(%r{(?<=\/{2}).[^\.]+})[0]] = link
-      end
     end
   end
 end
