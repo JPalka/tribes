@@ -12,3 +12,6 @@
 
 # exclude gemfile.lock for gem repo
 gemfile.lock
+
+# exclude gem builds
+*.gem
