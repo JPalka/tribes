@@ -243,4 +243,24 @@ RSpec.describe Tribes::Client do
     it { expect(subject).to be_a(Hash) }
     it { expect(subject).not_to be_empty }
   end
+
+  describe '#unit_info' do
+    let(:client) { described_class.new }
+    let(:info) { File.new('spec/fixtures/xml/unit_info.xml').read }
+    before do
+      allow(client).to receive(:world_list).and_return(
+        { 'en107' => 'https://en107.tribalwars.net',
+          'en110' => 'https://en110.tribalwars.net' }
+      )
+      @stub = stub_request(:get, 'https://en110.tribalwars.net/interface.php?func=get_unit_info').to_return(
+        status: 200,
+        body: info
+      )
+      client.world = 'en110'
+    end
+    subject { client.unit_info }
+
+    it { expect(subject).to be_a(Hash) }
+    it { expect(subject).not_to be_empty }
+  end
 end

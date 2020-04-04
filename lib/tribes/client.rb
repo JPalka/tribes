@@ -50,6 +50,10 @@ module Tribes
       @building_info ||= download_building_info
     end
 
+    def unit_info
+      @unit_info ||= download_unit_info
+    end
+
     private
 
     def download_player_list
@@ -74,6 +78,11 @@ module Tribes
 
     def download_building_info
       response = @connection.get('/interface.php?func=get_building_info')
+      parse_config(response.body)
+    end
+
+    def download_unit_info
+      response = @connection.get('/interface.php?func=get_unit_info')
       parse_config(response.body)
     end
 
