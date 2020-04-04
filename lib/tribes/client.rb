@@ -24,6 +24,10 @@ module Tribes
 
       @player_list = nil
       @village_list = nil
+      @tribe_list = nil
+      @world_config = nil
+      @building_info = nil
+      @unit_info = nil
       @connection = Faraday.new(url: world_list[world_id]) do |faraday|
         faraday.use FaradayMiddleware::FollowRedirects
       end
