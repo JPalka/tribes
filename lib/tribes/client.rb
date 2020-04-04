@@ -6,7 +6,7 @@ module Tribes
 
     def initialize(options = {})
       @configuration = Configuration.new
-      options.each { |option, value| configuration.send("#{option}=", value) }
+      @configuration.merge(options)
     end
 
     def configuration
@@ -23,7 +23,7 @@ module Tribes
     end
 
     def world=(world_id)
-      configuration.current_world = world_id
+      configuration.send(:current_world=, world_id)
 
       @player_list = nil
       @village_list = nil
