@@ -83,6 +83,18 @@ module Tribes
         json_body
       end
     end
+
+    def main_construction_info(village_id)
+      site = Tribes::Site::MainConstructionInfo.new(connection: configuration.base_connection,
+                                                    url: @world_url)
+      response = site.download(sid: @sid, village_id: village_id)
+      json_body = JSON.parse(response.body)
+      if json_body.key?('invalidsession')
+        print "INVALID SESSION\n"
+      else
+        json_body
+      end
+    end
     # def player_list
     #   @player_list ||= download_player_list
     # end
