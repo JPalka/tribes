@@ -7,8 +7,8 @@ RSpec.describe Tribes::Client do
   describe '#initialize' do
     let(:expected_attributes) do
       {
-        login: 'login',
-        password: 'password',
+        login: 'korenchkin',
+        password: 'rickenbacker1',
         remote_host: 'https://www.tribalwars.net'
       }
     end

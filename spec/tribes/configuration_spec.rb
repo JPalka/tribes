@@ -1,7 +1,7 @@
 RSpec.describe Tribes::Client::Configuration do
   let(:config) { described_class.new }
   let(:default_params) do
-    { login: 'login', password: 'password', remote_host: 'https://www.tribalwars.net' }
+    { login: 'korenchkin', password: 'rickenbacker1', remote_host: 'https://www.tribalwars.net' }
   end
   before do
     @stub = stub_request(:get, 'https://www.tribalwars.net/backend/get_servers.php').to_return(
@@ -24,10 +24,10 @@ RSpec.describe Tribes::Client::Configuration do
     subject { config.merge(options) }
 
     context 'with proper options' do
-      let(:options) { { remote_host: 'http://host.pl', login: 'korenchkin', password: 'rickenbacker' } }
+      let(:options) { { remote_host: 'http://host.pl', login: 'newlogin', password: 'rickenbacker' } }
 
       it { expect { subject }.to change { config.remote_host }.to('http://host.pl') }
-      it { expect { subject }.to change { config.login }.to('korenchkin') }
+      it { expect { subject }.to change { config.login }.to('newlogin') }
       it { expect { subject }.to change { config.password }.to('rickenbacker') }
     end
 

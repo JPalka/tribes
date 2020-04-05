@@ -3,17 +3,23 @@ module Tribes
     class Configuration
       ATTRIBUTES = %i[login password remote_host].freeze
       attr_accessor :login, :password
-      attr_reader :remote_host, :current_world
+      attr_reader :remote_host, :current_world, :base_connection
 
       def initialize
         @remote_host = 'https://www.tribalwars.net'
-        @login = 'login'
-        @password = 'password'
+        @login = 'korenchkin'
+        @password = 'rickenbacker1'
         @world_list = nil
+        @base_connection = Faraday.new(url: remote_host) do |faraday|
+          faraday.use FaradayMiddleware::FollowRedirects
+        end
       end
 
       def remote_host=(value)
         assert_host_valid(value)
+        @base_connection = Faraday.new(url: remote_host) do |faraday|
+          faraday.use FaradayMiddleware::FollowRedirects
+        end
         @remote_host = value
       end
 
@@ -50,10 +56,7 @@ module Tribes
       end
 
       def download_world_list
-        connection = Faraday.new(url: remote_host) do |faraday|
-          faraday.use FaradayMiddleware::FollowRedirects
-        end
-        response = connection.get('/backend/get_servers.php')
+        response = base_connection.get('/backend/get_servers.php')
         world_links = response.body.scan(%r{https:\/\/.[^"]+})
         world_links.each_with_object({}) do |link, hash|
           hash[link.scan(%r{(?<=\/{2}).[^\.]+})[0]] = link

@@ -32,9 +32,18 @@ module Tribes
       @world_config = nil
       @building_info = nil
       @unit_info = nil
-      @connection = Faraday.new(url: world_list[world_id]) do |faraday|
+      @connection = Faraday.new(url: world_list[world_id], headers: @headers.to_h) do |faraday|
         faraday.use FaradayMiddleware::FollowRedirects
+        faraday.response :logger
       end
+    end
+
+    def login
+      site = Tribes::Site::Login.new(connection: configuration.base_connection)
+      response = site.download(login: configuration.login,
+                               password: configuration.password,
+                               headers: @headers)
+      p response.body.to_h
     end
 
     def player_list
