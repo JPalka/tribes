@@ -1,14 +1,14 @@
 module Tribes
   module Site
-    class LoginWorld
+    class Villages
       def initialize(args = {})
         @connection = args[:connection]
         @url = args[:url]
       end
 
       def download(data)
-        credentials = [data[:token], 2, 'android']
-        @connection.post(@url + "/m/g/login?hash=#{Tribes.calculate_mobile_hash(credentials)}") do |req|
+        credentials = [data[:sid], nil]
+        @connection.post(@url + "/m/g/villages_get?hash=#{Tribes.calculate_mobile_hash(credentials)}") do |req|
           req.body = credentials.to_json
         end
       end
