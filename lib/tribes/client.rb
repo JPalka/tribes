@@ -7,6 +7,7 @@ module Tribes
     def initialize(options = {})
       @configuration = Configuration.new
       @configuration.merge(options)
+      initialize_headers
     end
 
     def configuration
@@ -90,6 +91,10 @@ module Tribes
     def download_unit_info
       response = @connection.get('/interface.php?func=get_unit_info')
       parse_config(response.body)
+    end
+
+    def initialize_headers
+      
     end
   end
 end
