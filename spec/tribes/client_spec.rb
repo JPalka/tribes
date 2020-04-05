@@ -19,45 +19,30 @@ RSpec.describe Tribes::Client do
         remote_host: 'https://www.tribalwars.net'
       }
     end
-    subject { described_class.new }
+    subject { client }
     
     context 'with no parameter' do
-      let(:expected_default) { 'https://tribalwars.net' }
       it { expect { subject }.not_to raise_error }
       it { expect(subject.configuration).to have_attributes(expected_attributes) }
     end
 
     context 'with parameter given' do
-      subject { described_class.new(url) }
-
       context 'valid url' do
-        let(:url) { { remote_host: 'https://plemiona.pl' } }
+        let(:options) { { remote_host: 'https://plemiona.pl' } }
 
         it { expect { subject }.not_to raise_error }
-        it { expect(subject.configuration).to have_attributes(url) }
+        it { expect(subject.configuration).to have_attributes(options) }
       end
 
       context 'invalid url' do
-        let(:url) { { remote_host: 'https:::///\/\/invalid.url..' } }
+        let(:options) { { remote_host: 'https:::///\/\/invalid.url..' } }
 
-        it { expect { subject }.to raise_error(ArgumentError) }
+        it { expect { subject }.to raise_error(ArgumentError, 'Argument is not a valid URL') }
       end
     end
   end
 
   describe '#world=' do
-    let(:client) { described_class.new }
-    before do
-      allow(client).to receive(:world_list).and_return(
-        { 'en107' => 'https://en107.tribalwars.net',
-          'en110' => 'https://en110.tribalwars.net',
-          'en111' => 'https://en111.tribalwars.net',
-          'en112' => 'https://en112.tribalwars.net',
-          'en113' => 'https://en113.tribalwars.net',
-          'enp8' => 'https://enp8.tribalwars.net' }
-      )
-    end
-
     context 'when world exist on the server' do
       subject { client.world = 'en110' }
       it { expect { subject }.not_to raise_error }
@@ -74,28 +59,7 @@ RSpec.describe Tribes::Client do
   end
 
   describe '#player_list' do
-    let(:client) { described_class.new }
-    let(:players) do
-      "898,piratedan,1023,1,1347,1644\n"\
-      "7297,darkx,85,3,6594,88\n"\
-      "10083,zora+ostar,1060,1,916,2569\n"\
-      "15035,DrakenZ,328,1,506,4317\n"\
-      "17977,Tyrungal,104,1,1158,1961\n"\
-      "24949,FeudalKnight,0,1,242,6836"
-    end
     before do
-      allow(client).to receive(:world_list).and_return(
-        { 'en107' => 'https://en107.tribalwars.net',
-          'en110' => 'https://en110.tribalwars.net',
-          'en111' => 'https://en111.tribalwars.net',
-          'en112' => 'https://en112.tribalwars.net',
-          'en113' => 'https://en113.tribalwars.net',
-          'enp8' => 'https://enp8.tribalwars.net' }
-      )
-      @stub = stub_request(:get, 'https://en110.tribalwars.net/map/player.txt').to_return(
-        status: 200,
-        body: players
-      )
       client.world = 'en110'
     end
     subject { client.player_list }
@@ -113,25 +77,7 @@ RSpec.describe Tribes::Client do
   end
 
   describe '#village_list' do
-    let(:client) { described_class.new }
-    let(:villages) do
-      "1,%2B+KINGS+CASTLE+%2B,500,476,267865,1533,0\n"\
-      "2,001,502,472,9828389,3170,0\n"\
-      "3,335D,507,482,11295245,2388,0\n"
-    end
     before do
-      allow(client).to receive(:world_list).and_return(
-        { 'en107' => 'https://en107.tribalwars.net',
-          'en110' => 'https://en110.tribalwars.net',
-          'en111' => 'https://en111.tribalwars.net',
-          'en112' => 'https://en112.tribalwars.net',
-          'en113' => 'https://en113.tribalwars.net',
-          'enp8' => 'https://enp8.tribalwars.net' }
-      )
-      @stub = stub_request(:get, 'https://en110.tribalwars.net/map/village.txt').to_return(
-        status: 200,
-        body: villages
-      )
       client.world = 'en110'
     end
     subject { client.village_list }
@@ -145,25 +91,7 @@ RSpec.describe Tribes::Client do
   end
 
   describe '#tribe_list' do
-    let(:client) { described_class.new }
-    let(:tribes) do
-      "2,Zini,Zanzo,1,1,486,486,169\n"\
-      "7,Lions+of+the+Night,Lions,3,3,4571,4571,111\n"\
-      "9,Cerberus,Hades,11,32,147555,147555,31\n"
-    end
     before do
-      allow(client).to receive(:world_list).and_return(
-        { 'en107' => 'https://en107.tribalwars.net',
-          'en110' => 'https://en110.tribalwars.net',
-          'en111' => 'https://en111.tribalwars.net',
-          'en112' => 'https://en112.tribalwars.net',
-          'en113' => 'https://en113.tribalwars.net',
-          'enp8' => 'https://enp8.tribalwars.net' }
-      )
-      @stub = stub_request(:get, 'https://en110.tribalwars.net/map/ally.txt').to_return(
-        status: 200,
-        body: tribes
-      )
       client.world = 'en110'
     end
     subject { client.tribe_list }
@@ -181,17 +109,7 @@ RSpec.describe Tribes::Client do
   end
 
   describe '#world_config' do
-    let(:client) { described_class.new }
-    let(:config) { File.new('spec/fixtures/xml/world_config.xml').read }
     before do
-      allow(client).to receive(:world_list).and_return(
-        { 'en107' => 'https://en107.tribalwars.net',
-          'en110' => 'https://en110.tribalwars.net' }
-      )
-      @stub = stub_request(:get, 'https://en110.tribalwars.net/interface.php?func=get_config').to_return(
-        status: 200,
-        body: config
-      )
       client.world = 'en110'
     end
     subject { client.world_config }
@@ -201,17 +119,7 @@ RSpec.describe Tribes::Client do
   end
 
   describe '#building_info' do
-    let(:client) { described_class.new }
-    let(:info) { File.new('spec/fixtures/xml/building_info.xml').read }
     before do
-      allow(client).to receive(:world_list).and_return(
-        { 'en107' => 'https://en107.tribalwars.net',
-          'en110' => 'https://en110.tribalwars.net' }
-      )
-      @stub = stub_request(:get, 'https://en110.tribalwars.net/interface.php?func=get_building_info').to_return(
-        status: 200,
-        body: info
-      )
       client.world = 'en110'
     end
     subject { client.building_info }
@@ -221,17 +129,7 @@ RSpec.describe Tribes::Client do
   end
 
   describe '#unit_info' do
-    let(:client) { described_class.new }
-    let(:info) { File.new('spec/fixtures/xml/unit_info.xml').read }
     before do
-      allow(client).to receive(:world_list).and_return(
-        { 'en107' => 'https://en107.tribalwars.net',
-          'en110' => 'https://en110.tribalwars.net' }
-      )
-      @stub = stub_request(:get, 'https://en110.tribalwars.net/interface.php?func=get_unit_info').to_return(
-        status: 200,
-        body: info
-      )
       client.world = 'en110'
     end
     subject { client.unit_info }

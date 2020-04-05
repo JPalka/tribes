@@ -1,8 +1,9 @@
 RSpec.shared_context 'client class' do
   let(:client) do
-    Class.new(described_class).tap { |client_class| client_class.configuration.merge(options) }
+    described_class.new.tap { |client_class| client_class.configuration.merge(options) }
   end
-  let(:instance) { token_class.new }
+  let(:options) { {} }
+  let(:instance) { client }
   let(:players) do
     "898,piratedan,1023,1,1347,1644\n"\
     "7297,darkx,85,3,6594,88\n"\

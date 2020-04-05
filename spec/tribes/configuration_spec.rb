@@ -30,7 +30,7 @@ RSpec.describe Tribes::Client::Configuration do
     context 'when host is invalid' do
       subject { config.remote_host = 'https:\/\/\/.....invalidurl?aSdas' }
 
-      it { expect { subject }.to raise_error }
+      it { expect { subject }.to raise_error(ArgumentError, 'Argument is not a valid URL') }
     end
   end
 

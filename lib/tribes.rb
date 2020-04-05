@@ -10,6 +10,7 @@ require 'faraday_middleware'
 require 'active_support/core_ext/hash'
 require 'digest'
 require 'json'
+require 'pry'
 
 module Tribes
   class Error < StandardError; end
