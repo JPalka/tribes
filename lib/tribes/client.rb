@@ -66,7 +66,11 @@ module Tribes
                                         url: @world_url)
       response = site.download(sid: @sid)
       json_body = JSON.parse(response.body)
-      print json_body
+      if json_body.key?('invalidsession')
+        print "INVALID SESSION\n"
+      else
+        print json_body
+      end
     end
     # def player_list
     #   @player_list ||= download_player_list
