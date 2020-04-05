@@ -49,7 +49,6 @@ module Tribes
 
     def enter_world(world_id)
       @world_url = find_world_url(world_id)
-      
       site = Tribes::Site::LoginWorld.new(connection: configuration.base_connection,
                                           url: @world_url)
       response = site.download(token: @login_token)
@@ -61,7 +60,7 @@ module Tribes
       end
     end
 
-    def get_villages
+    def villages
       site = Tribes::Site::Villages.new(connection: configuration.base_connection,
                                         url: @world_url)
       response = site.download(sid: @sid)
@@ -69,7 +68,19 @@ module Tribes
       if json_body.key?('invalidsession')
         print "INVALID SESSION\n"
       else
-        print json_body
+        json_body['result']
+      end
+    end
+
+    def village_data(village_id)
+      site = Tribes::Site::VillageData.new(connection: configuration.base_connection,
+                                           url: @world_url)
+      response = site.download(sid: @sid, village_id: village_id)
+      json_body = JSON.parse(response.body)
+      if json_body.key?('invalidsession')
+        print "INVALID SESSION\n"
+      else
+        json_body
       end
     end
     # def player_list
