@@ -26,7 +26,7 @@ module Tribes
         if unpermitted_options.any?
           raise ArgumentError, "Invalid options: #{unpermitted_options.join(', ')}"
         end
-        
+
         options.each { |option, value| send("#{option}=", value) }
 
         self

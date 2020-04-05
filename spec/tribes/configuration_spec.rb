@@ -19,6 +19,27 @@ RSpec.describe Tribes::Client::Configuration do
       expect { subject }.to raise_error(NoMethodError)
     end
   end
+  
+  describe '#merge' do
+    subject { config.merge(options) }
+
+    context 'with proper options' do
+      let(:options) { { remote_host: 'http://host.pl', login: 'korenchkin', password: 'rickenbacker' } }
+
+      it { expect { subject }.to change { config.remote_host }.to('http://host.pl') }
+      it { expect { subject }.to change { config.login }.to('korenchkin') }
+      it { expect { subject }.to change { config.password }.to('rickenbacker') }
+    end
+
+    context 'with invalid options' do
+      let(:options) { { remote: 'http://herpaderp', jazz: 1000, afhljhjafjk: 'kldaslk' } }
+
+      it do
+        expect { subject }.to raise_error(ArgumentError,
+                                          'Invalid options: remote, jazz, afhljhjafjk')
+      end
+    end
+  end
 
   describe '#remote_host=' do
     context 'when host is valid' do
