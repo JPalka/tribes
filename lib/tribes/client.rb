@@ -3,6 +3,7 @@
 module Tribes
   class Client
     include Tribes::Parser
+    attr_reader :active_worlds
 
     def initialize(options = {})
       @configuration = Configuration.new
@@ -25,13 +26,6 @@ module Tribes
 
     def world=(world_id)
       configuration.send(:current_world=, world_id)
-
-      @player_list = nil
-      @village_list = nil
-      @tribe_list = nil
-      @world_config = nil
-      @building_info = nil
-      @unit_info = nil
       @connection = Faraday.new(url: world_list[world_id], headers: @headers.to_h) do |faraday|
         faraday.use FaradayMiddleware::FollowRedirects
         faraday.response :logger
@@ -43,32 +37,51 @@ module Tribes
       response = site.download(login: configuration.login,
                                password: configuration.password,
                                headers: @headers)
-      p response.body.to_h
+      json_body = JSON.parse(response.body)
+      if json_body.key?('error')
+        json_body
+      else
+        @login_token = json_body['result']['token']
+        @player_id = json_body['result']['player_id']
+        @active_worlds = json_body['result']['worlds']['active']
+      end
     end
 
-    def player_list
-      @player_list ||= download_player_list
+    def enter_world(world_id)
+      world = world_id
+      site = Tribes::Site::LoginWorld.new(connection: @connection)
+      response = site.download(token: @login_token)
+      json_body = JSON.parse(response.body)
+      if json_body.key?('error')
+        json_body
+      else
+        json_body
+      end
     end
 
-    def village_list
-      @village_list ||= download_village_list
-    end
+    # def player_list
+    #   @player_list ||= download_player_list
+    # end
 
-    def tribe_list
-      @tribe_list ||= download_tribe_list
-    end
+    # def village_list
+    #   @village_list ||= download_village_list
+    # end
 
-    def world_config
-      @world_config ||= download_world_config
-    end
+    # def tribe_list
+    #   @tribe_list ||= download_tribe_list
+    # end
 
-    def building_info
-      @building_info ||= download_building_info
-    end
+    # def world_config
+    #   @world_config ||= download_world_config
+    # end
 
-    def unit_info
-      @unit_info ||= download_unit_info
-    end
+    # def building_info
+    #   @building_info ||= download_building_info
+    # end
+
+    # def unit_info
+    #   @unit_info ||= download_unit_info
+    # end
 
     private
 
