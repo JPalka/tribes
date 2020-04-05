@@ -28,14 +28,18 @@ RSpec.shared_context 'client class' do
   let(:unit_info) { File.new('spec/fixtures/xml/unit_info.xml').read }
 
   before do
-    allow(client).to receive(:world_list).and_return(
-      { 'en107' => 'https://en107.tribalwars.net',
-        'en110' => 'https://en110.tribalwars.net',
-        'en111' => 'https://en111.tribalwars.net',
-        'en112' => 'https://en112.tribalwars.net',
-        'en113' => 'https://en113.tribalwars.net',
-        'enp8' => 'https://enp8.tribalwars.net' }
-    )
+    begin
+      allow(client).to receive(:world_list).and_return(
+        { 'en107' => 'https://en107.tribalwars.net',
+          'en110' => 'https://en110.tribalwars.net',
+          'en111' => 'https://en111.tribalwars.net',
+          'en112' => 'https://en112.tribalwars.net',
+          'en113' => 'https://en113.tribalwars.net',
+          'enp8' => 'https://enp8.tribalwars.net' }
+      )
+    rescue ArgumentError
+      'This is just to suppress error when trying to stub client with invalid options'
+    end
     @servers_stub = stub_request(:get, 'https://www.tribalwars.net/backend/get_servers.php').to_return(
       status: 200,
       body: 'a:12:{s:5:"en107";s:28:"https://en107.tribalwars.net";s:5:"en110";s:28:"https://en110.tribalwars.net";s:5:"en111";s:28:"https://en111.tribalwars.net";s:5:"en112";s:28:"https://en112.tribalwars.net";s:5:"en113";s:28:"https://en113.tribalwars.net";s:4:"enp8";s:27:"https://enp8.tribalwars.net";}',
