@@ -26,6 +26,7 @@ module Tribes
       response = connection.post(@service.name + create_slug(data)) do |req|
         req.body = json_data
       end
+      JSON.parse(response.body)
     end
 
     private

@@ -30,13 +30,13 @@ module Tribes
     def login
       service = DataService.new(ControllerServer::MASTER_SERVER, 'login', 'POST', true)
       controller = ControllerServer.new(service, @configuration)
-      json_body = JSON.parse(controller.load([@configuration.login, @configuration.password, '2.30.0']).body)
-      if json_body.key?('error')
-        json_body
+      json_response = controller.load([@configuration.login, @configuration.password, '2.30.0'])
+      if json_response.key?('error')
+        json_response
       else
-        @login_token = json_body['result']['token']
-        @player_id = json_body['result']['player_id']
-        @active_worlds = json_body['result']['worlds']['active']
+        @login_token = json_response['result']['token']
+        @player_id = json_response['result']['player_id']
+        @active_worlds = json_response['result']['worlds']['active']
       end
     end
 
