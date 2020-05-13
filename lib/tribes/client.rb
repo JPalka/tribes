@@ -8,6 +8,8 @@ module Tribes
     def initialize(options = {})
       @configuration = Configuration.new
       @configuration.merge(options)
+      @session = Session.new(@configuration)
+      @world_list = WorldList.new(@configuration)
     end
 
     def configuration
@@ -19,8 +21,12 @@ module Tribes
       configuration
     end
 
-    def world_list
-      configuration.world_list
+    # def world_list
+    #   configuration.world_list
+    # end
+
+    def worlds
+      @world_list.download_worlds
     end
 
     def world=(world_id)
@@ -28,16 +34,7 @@ module Tribes
     end
 
     def login
-      # service = DataService.new(ControllerServer::MASTER_SERVER, 'login', 'POST', true)
-      controller = ControllerServer.new(ServiceContainer::DO_LOGIN_TO_MARKET, @configuration)
-      json_response = controller.load([@configuration.login, @configuration.password, '2.30.0'])
-      if json_response.key?('error')
-        json_response
-      else
-        @login_token = json_response['result']['token']
-        @player_id = json_response['result']['player_id']
-        @active_worlds = json_response['result']['worlds']['active']
-      end
+      @session.login_to_market(@configuration.login, @configuration.password)
     end
 
     def enter_world(world_id)
