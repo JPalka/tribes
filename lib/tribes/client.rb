@@ -26,7 +26,7 @@ module Tribes
     # end
 
     def worlds
-      @world_list.download_worlds
+      @world_list.download_worlds(@session)
     end
 
     def world=(world_id)

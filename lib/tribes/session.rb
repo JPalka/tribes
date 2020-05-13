@@ -1,5 +1,6 @@
 module Tribes
   class Session
+    attr_reader :token
     def initialize(configuration)
       @market_key = 'zz'
       @username = ''
