@@ -1,12 +1,14 @@
 module Tribes
   class Client
     class Configuration
-      ATTRIBUTES = %i[login password remote_host].freeze
+      ATTRIBUTES = %i[login password remote_host master_server game_server].freeze
       attr_accessor :login, :password
       attr_reader :remote_host, :current_world, :base_connection
 
       def initialize
         @remote_host = 'https://www.tribalwars.net'
+        @master_server = 'https://www.tribalwars.net'
+        @game_server = ''
         @login = 'korenchkin'
         @password = 'rickenbacker1'
         @world_list = nil
