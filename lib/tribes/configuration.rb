@@ -3,7 +3,7 @@ module Tribes
     class Configuration
       ATTRIBUTES = %i[login password remote_host master_server game_server].freeze
       attr_accessor :login, :password
-      attr_reader :remote_host, :current_world, :base_connection
+      attr_reader :remote_host, :current_world, :base_connection, :master_server, :game_server
 
       def initialize
         @remote_host = 'https://www.tribalwars.net'
@@ -12,9 +12,9 @@ module Tribes
         @login = 'korenchkin'
         @password = 'rickenbacker1'
         @world_list = nil
-        @base_connection = Faraday.new(url: remote_host) do |faraday|
-          faraday.use FaradayMiddleware::FollowRedirects
-        end
+        # @base_connection = Faraday.new(url: remote_host) do |faraday|
+        #   faraday.use FaradayMiddleware::FollowRedirects
+        # end
       end
 
       def remote_host=(value)

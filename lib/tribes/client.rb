@@ -8,11 +8,6 @@ module Tribes
     def initialize(options = {})
       @configuration = Configuration.new
       @configuration.merge(options)
-      @headers = Headers.new
-      @connection = Faraday.new(headers: @headers.to_h) do |faraday|
-        faraday.use FaradayMiddleware::FollowRedirects
-        faraday.response :logger
-      end
     end
 
     def configuration
@@ -30,21 +25,13 @@ module Tribes
 
     def world=(world_id)
       configuration.send(:current_world=, world_id)
-      @connection = Faraday.new(url: world_list[world_id], headers: @headers.to_h) do |faraday|
-        faraday.use FaradayMiddleware::FollowRedirects
-        faraday.response :logger
-      end
     end
 
     def login
-      service = DataService.new(ControllerServer.MASTER_SERVER, 'login', 'POST')
-      controller = new ControllerServer(service, @configuration, @connection)
-      json_body = controller.load([@configuration.login, @configuration.password, '2.30.0']).body
-      # site = Tribes::Site::Login.new(connection: configuration.base_connection)
-      # response = site.download(login: configuration.login,
-      #                          password: configuration.password,
-      #                          headers: @headers)
-      # json_body = JSON.parse(response.body)
+      service = DataService.new(ControllerServer::MASTER_SERVER, 'login', 'POST', true)
+      controller = ControllerServer.new(service, @configuration)
+      json_body = controller.load([@configuration.login, @configuration.password, '2.30.0'])
+      binding.pry
       if json_body.key?('error')
         json_body
       else
