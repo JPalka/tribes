@@ -1,4 +1,4 @@
-module Tribes {
+module Tribes 
   class ControllerServer
     MASTER_SERVER = 'master'
     GAME_SERVER = 'game'
@@ -18,7 +18,6 @@ module Tribes {
       @connection = connection
     end
 
-    # param1 is 
     def load(data)
       json_data = data.to_json
       hash = Tribes.calculate_mobile_hash(json_data)
@@ -40,4 +39,4 @@ module Tribes {
       end
     end
   end
-}
+end
