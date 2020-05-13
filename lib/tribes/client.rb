@@ -28,8 +28,8 @@ module Tribes
     end
 
     def login
-      service = DataService.new(ControllerServer::MASTER_SERVER, 'login', 'POST', true)
-      controller = ControllerServer.new(service, @configuration)
+      # service = DataService.new(ControllerServer::MASTER_SERVER, 'login', 'POST', true)
+      controller = ControllerServer.new(ServiceContainer::DO_LOGIN_TO_MARKET, @configuration)
       json_response = controller.load([@configuration.login, @configuration.password, '2.30.0'])
       if json_response.key?('error')
         json_response
