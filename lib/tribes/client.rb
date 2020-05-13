@@ -30,8 +30,7 @@ module Tribes
     def login
       service = DataService.new(ControllerServer::MASTER_SERVER, 'login', 'POST', true)
       controller = ControllerServer.new(service, @configuration)
-      json_body = controller.load([@configuration.login, @configuration.password, '2.30.0'])
-      binding.pry
+      json_body = JSON.parse(controller.load([@configuration.login, @configuration.password, '2.30.0']).body)
       if json_body.key?('error')
         json_body
       else
