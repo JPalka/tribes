@@ -20,6 +20,7 @@ module Tribes
     def load(data)
       json_data = data.to_json
       connection = Faraday.new(url: create_base_url, headers: Headers.new.to_h) do |faraday|
+        faraday.use :cookie_jar
         faraday.use FaradayMiddleware::FollowRedirects
         faraday.response :logger
       end

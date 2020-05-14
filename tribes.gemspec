@@ -36,5 +36,6 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency 'activesupport', '~> 6.0'
   spec.add_runtime_dependency 'faraday', '~> 1.0'
+  spec.add_runtime_dependency 'faraday-cookie_jar', '0.0.6'
   spec.add_runtime_dependency 'faraday_middleware', '~> 1.0'
 end

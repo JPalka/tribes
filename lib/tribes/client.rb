@@ -25,13 +25,16 @@ module Tribes
       @world_list.download_worlds(@session)
     end
 
-    def world=(world_id)
-      configuration.send(:current_world=, world_id)
-    end
-
     def login
       response = @session.login_to_market(@configuration.login, @configuration.password)
       @world_list.load_worlds(response['result']['worlds'])
+    end
+
+    def login_to_world
+      throw 'Choose a fucking world' unless @configuration.game_server
+
+      response = @session.login_to_world
+      binding.pry
     end
 
     def change_world(world_id)

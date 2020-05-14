@@ -11,7 +11,7 @@ module Tribes
         @game_server = ''
         @login = 'korenchkin'
         @password = 'rickenbacker1'
-        @world_list = nil
+        # @world_list = nil
         # @base_connection = Faraday.new(url: remote_host) do |faraday|
         #   faraday.use FaradayMiddleware::FollowRedirects
         # end
