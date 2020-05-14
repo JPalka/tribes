@@ -29,6 +29,14 @@ module Tribes
       JSON.parse(response.body)
     end
 
+    def check_errors(data)
+      throw 'Error occured woobwoob' if check_error(data)
+      
+      throw 'Session is invalid' if check_invalid_session(data)
+    end
+
+    private
+
     def check_error(data)
       data.to_s.include?('error') && !data.to_s.include?('result')
     end
@@ -36,9 +44,7 @@ module Tribes
     def check_invalid_session(data)
       data.to_s.downcase.include?('"invalidsession"=>true')
     end
-
-    private
-
+    
     def create_slug(data)
       slug = ''
       if @service.server_type == GAME_SERVER || @service.server_type == MASTER_SERVER

@@ -11,14 +11,9 @@ module Tribes
     def download_worlds(session)
       controller = ControllerServer.new(ServiceContainer::GET_WORLDS, @configuration)
       json_response = controller.load([session.token])
-      if controller.check_error(json_response)
-        throw 'Error occured woobwoob'
-      elsif controller.check_invalid_session(json_response)
-        throw 'Session is invalid'
-      else
-        load_worlds(json_response['result'])
-        json_response
-      end
+      controller.check_errors(json_response)
+      load_worlds(json_response['result'])
+      json_response
     end
 
     def load_worlds(json_data)
