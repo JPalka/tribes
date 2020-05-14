@@ -21,10 +21,6 @@ module Tribes
       configuration
     end
 
-    # def world_list
-    #   configuration.world_list
-    # end
-
     def worlds
       @world_list.download_worlds(@session)
     end

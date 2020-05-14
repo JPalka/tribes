@@ -29,6 +29,14 @@ module Tribes
       JSON.parse(response.body)
     end
 
+    def check_error(data)
+      data.to_s.include?('error') && !data.to_s.include?('result')
+    end
+
+    def check_invalid_session(data)
+      data.to_s.downcase.include?('"invalidsession"=>true')
+    end
+
     private
 
     def create_slug(data)
