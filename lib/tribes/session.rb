@@ -17,7 +17,7 @@ module Tribes
       json_response = controller.load([username, password, '2.30.0'])
       controller.check_errors(json_response)
       login_to_market_success(json_response)
-      end
+      json_response
     end
 
     def login_to_world

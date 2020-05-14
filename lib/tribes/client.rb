@@ -34,7 +34,6 @@ module Tribes
       throw 'Choose a fucking world' unless @configuration.game_server
 
       response = @session.login_to_world
-      binding.pry
     end
 
     def change_world(world_id)

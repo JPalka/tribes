@@ -33,7 +33,7 @@ module Tribes
       found_world = @worlds.find { |world| world['server_name'] == world_id }
       return false unless found_world
 
-      @active_worlds = found_world
+      @selected_world = found_world
     end
   end
 end
