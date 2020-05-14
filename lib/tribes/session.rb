@@ -15,10 +15,8 @@ module Tribes
     def login_to_market(username, password)
       controller = ControllerServer.new(ServiceContainer::DO_LOGIN_TO_MARKET, @configuration)
       json_response = controller.load([username, password, '2.30.0'])
-      if json_response.key?('error')
-        throw 'Error occured woobwoob'
-      else
-        login_to_market_success(json_response)
+      controller.check_errors(json_response)
+      login_to_market_success(json_response)
       end
     end
 
