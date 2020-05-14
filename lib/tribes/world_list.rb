@@ -25,5 +25,15 @@ module Tribes
         end
       end
     end
+
+    def change_world(world_id)
+      # yeet if world is already selected
+      return false if world_id == @selected_world.to_h['server_name']
+
+      found_world = @worlds.find { |world| world['server_name'] == world_id }
+      return false unless found_world
+
+      @active_worlds = found_world
+    end
   end
 end

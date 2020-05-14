@@ -34,6 +34,16 @@ module Tribes
       @world_list.load_worlds(response['result']['worlds'])
     end
 
+    def change_world(world_id)
+      new_world = @world_list.change_world(world_id)
+      if new_world
+        @configuration.game_server = new_world['url']
+        true
+      else
+        false
+      end
+    end
+
     def enter_world(world_id)
       @world_url = find_world_url(world_id)
       site = Tribes::Site::LoginWorld.new(connection: configuration.base_connection,
