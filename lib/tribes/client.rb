@@ -34,7 +34,8 @@ module Tribes
     end
 
     def login
-      @session.login_to_market(@configuration.login, @configuration.password)
+      response = @session.login_to_market(@configuration.login, @configuration.password)
+      @world_list.load_worlds(response['result']['worlds'])
     end
 
     def enter_world(world_id)

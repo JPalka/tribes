@@ -14,16 +14,16 @@ module Tribes
       if json_response.key?('error')
         throw 'Error occured woobwoob'
       else
-        load_worlds(json_response)
+        load_worlds(json_response['result'])
         json_response
       end
     end
 
     def load_worlds(json_data)
-      json_data['result'].each do |world_group, _val|
+      json_data.each do |world_group, _val|
         next if world_group == 'current'
 
-        json_data['result'][world_group].each do |world|
+        json_data[world_group].each do |world|
           @worlds.push(world)
         end
       end
