@@ -23,12 +23,12 @@ module Tribes
     end
 
     def worlds
-      @world_list.download_worlds(@session)
+      @world_list.download(@session)
     end
 
     def login
       response = @session.login_to_market(@configuration.login, @configuration.password)
-      @world_list.load_worlds(response['result']['worlds'])
+      @world_list.load(response['result']['worlds'])
     end
 
     def login_to_world
@@ -51,7 +51,7 @@ module Tribes
     end
 
     def change_world(world_id)
-      new_world = @world_list.change_world(world_id)
+      new_world = @world_list.select(world_id)
       if new_world
         @configuration.game_server = new_world['url']
         true
