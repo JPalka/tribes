@@ -7,5 +7,6 @@ module Tribes
     GET_VILLAGE_DATA = DataService.new(ControllerServer::GAME_SERVER, 'village_data', 'POST', false)
     GET_PLAYER_INFO = DataService.new(ControllerServer::GAME_SERVER, 'player_info', 'POST', false)
     GET_VILLAGE_VISUAL = DataService.new(ControllerServer::GAME_SERVER, 'village_visual', 'POST', false)
+    GET_PROD_BUILDING = DataService.new(ControllerServer::GAME_SERVER, 'prod_building', 'POST', false)
   end
 end

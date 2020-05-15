@@ -31,7 +31,11 @@ module Tribes
     end
 
     def check_errors(data)
-      throw 'Error occured woobwoob' if check_error(data)
+      begin
+        throw 'Error occured woobwoob' if check_error(data)
+      rescue
+        binding.pry
+      end
       
       throw 'Session is invalid' if check_invalid_session(data)
     end
