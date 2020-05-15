@@ -10,7 +10,7 @@ module Tribes
     def download(session)
       response = @controller.load(post_data(session))
       @controller.check_errors(response)
-      load(response)
+      load(response['result'])
       response
     end
 

@@ -50,6 +50,13 @@ module Tribes
       json_response
     end
 
+    def village_visual
+      controller = ControllerServer.new(ServiceContainer::GET_VILLAGE_VISUAL, @configuration)
+      json_response = controller.load([@session.session_id, @village_list.selected_element[0]])
+      controller.check_errors(json_response)
+      json_response
+    end
+
     def player_info
       controller = ControllerServer.new(ServiceContainer::GET_PLAYER_INFO, @configuration)
       json_response = controller.load([@session.session_id, @session.player_id])
