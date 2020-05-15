@@ -40,12 +40,12 @@ module Tribes
     def villages
       throw 'Not logged in' unless @session.player_id
 
-      @village_list.download_villages(@session)
+      @village_list.download(@session)
     end
 
     def village_data
       controller = ControllerServer.new(ServiceContainer::GET_VILLAGE_DATA, @configuration)
-      json_response = controller.load([@session.session_id, @village_list.active_village[0]])
+      json_response = controller.load([@session.session_id, @village_list.selected_element[0]])
       controller.check_errors(json_response)
       json_response
     end
