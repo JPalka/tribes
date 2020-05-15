@@ -2,6 +2,7 @@
 
 module Tribes
   class VillageList
+    attr_reader :active_village, :villages
     def initialize(configuration)
       @configuration = configuration
       @active_village = nil

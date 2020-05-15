@@ -43,6 +43,13 @@ module Tribes
       @village_list.download_villages(@session)
     end
 
+    def village_data
+      controller = ControllerServer.new(ServiceContainer::GET_VILLAGE_DATA, @configuration)
+      json_response = controller.load([@session.session_id, @village_list.active_village[0]])
+      controller.check_errors(json_response)
+      json_response
+    end
+
     def change_world(world_id)
       new_world = @world_list.change_world(world_id)
       if new_world
