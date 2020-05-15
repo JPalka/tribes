@@ -50,6 +50,13 @@ module Tribes
       json_response
     end
 
+    def player_info
+      controller = ControllerServer.new(ServiceContainer::GET_PLAYER_INFO, @configuration)
+      json_response = controller.load([@session.session_id, @session.player_id])
+      controller.check_errors(json_response)
+      json_response
+    end
+
     def change_world(world_id)
       new_world = @world_list.select(world_id)
       if new_world

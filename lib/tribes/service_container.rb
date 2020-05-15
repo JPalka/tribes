@@ -5,5 +5,6 @@ module Tribes
     GET_WORLDS = DataService.new(ControllerServer::MASTER_SERVER, 'worlds', 'POST', true)
     GET_VILLAGES = DataService.new(ControllerServer::GAME_SERVER, 'villages_get', 'POST', false)
     GET_VILLAGE_DATA = DataService.new(ControllerServer::GAME_SERVER, 'village_data', 'POST', false)
+    GET_PLAYER_INFO = DataService.new(ControllerServer::GAME_SERVER, 'player_info', 'POST', false)
   end
 end
