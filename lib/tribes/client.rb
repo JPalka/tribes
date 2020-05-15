@@ -10,6 +10,7 @@ module Tribes
       @configuration.merge(options)
       @session = Session.new(@configuration)
       @world_list = WorldList.new(@configuration)
+      @village_list = VillageList.new(@configuration)
     end
 
     def configuration
@@ -34,6 +35,13 @@ module Tribes
       throw 'Choose a fucking world' unless @configuration.game_server
 
       response = @session.login_to_world
+    end
+
+    def villages
+      throw 'Not logged in' unless @session.player_id
+
+      r = @village_list.download_villages(@session)
+      binding.pry
     end
 
     def change_world(world_id)
