@@ -34,14 +34,13 @@ module Tribes
     def login_to_world
       throw 'Choose a fucking world' unless @configuration.game_server
 
-      response = @session.login_to_world
+      @session.login_to_world
     end
 
     def villages
       throw 'Not logged in' unless @session.player_id
 
-      r = @village_list.download_villages(@session)
-      binding.pry
+      @village_list.download_villages(@session)
     end
 
     def change_world(world_id)
@@ -67,17 +66,17 @@ module Tribes
       end
     end
 
-    def villages
-      site = Tribes::Site::Villages.new(connection: configuration.base_connection,
-                                        url: @world_url)
-      response = site.download(sid: @sid)
-      json_body = JSON.parse(response.body)
-      if json_body.key?('invalidsession')
-        print "INVALID SESSION\n"
-      else
-        json_body['result']
-      end
-    end
+    # def villages
+    #   site = Tribes::Site::Villages.new(connection: configuration.base_connection,
+    #                                     url: @world_url)
+    #   response = site.download(sid: @sid)
+    #   json_body = JSON.parse(response.body)
+    #   if json_body.key?('invalidsession')
+    #     print "INVALID SESSION\n"
+    #   else
+    #     json_body['result']
+    #   end
+    # end
 
     def village_data(village_id)
       site = Tribes::Site::VillageData.new(connection: configuration.base_connection,

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Tribes
   class VillageList
     def initialize(configuration)
@@ -15,10 +17,8 @@ module Tribes
     end
 
     def load_villages(json_data)
-
-    end
-
-    def change_village(village_id)
+      @villages = json_data['villages_in_current_group']
+      @active_village = json_data['default_village']
     end
   end
 end
