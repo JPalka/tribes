@@ -66,7 +66,7 @@ module Tribes
 
     def prod_building(building_id)
       throw 'wrong building type.' unless building_id == 'wood' && building_id == 'iron' && building_id == 'clay'
-      
+
       controller = ControllerServer.new(ServiceContainer::GET_PROD_BUILDING, @configuration)
       json_response = controller.load([@session.session_id, @village_list.selected_element[0], building_id.to_s])
       controller.check_errors(json_response)
