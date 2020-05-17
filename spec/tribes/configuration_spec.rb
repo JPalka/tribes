@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Tribes::Client::Configuration do
   let(:config) { described_class.new }
   let(:default_params) do
@@ -19,7 +21,7 @@ RSpec.describe Tribes::Client::Configuration do
       expect { subject }.to raise_error(NoMethodError)
     end
   end
-  
+
   describe '#merge' do
     subject { config.merge(options) }
 

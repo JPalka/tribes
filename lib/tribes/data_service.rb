@@ -1,4 +1,6 @@
-module Tribes 
+# frozen_string_literal: true
+
+module Tribes
   class DataService
     attr_reader :server_type, :name, :method, :is_action_request
 

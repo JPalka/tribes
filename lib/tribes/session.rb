@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Tribes
   class Session
     attr_reader :token, :player_id, :session_id

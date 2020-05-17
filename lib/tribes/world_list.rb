@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Tribes
   class WorldList < DataList
     def initialize(configuration)

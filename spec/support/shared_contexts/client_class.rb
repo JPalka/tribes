@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.shared_context 'client class' do
   let(:client) do
     described_class.new.tap { |client_class| client_class.configuration.merge(options) }
@@ -10,7 +12,7 @@ RSpec.shared_context 'client class' do
     "10083,zora+ostar,1060,1,916,2569\n"\
     "15035,DrakenZ,328,1,506,4317\n"\
     "17977,Tyrungal,104,1,1158,1961\n"\
-    "24949,FeudalKnight,0,1,242,6836"
+    '24949,FeudalKnight,0,1,242,6836'
   end
   let(:villages) do
     "1,%2B+KINGS+CASTLE+%2B,500,476,267865,1533,0\n"\

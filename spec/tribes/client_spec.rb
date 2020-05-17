@@ -1,5 +1,6 @@
 # frozen_string_literal: true
-require "support/shared_contexts/client_class"
+
+require 'support/shared_contexts/client_class'
 
 RSpec.describe Tribes::Client do
   include_context 'client class'

@@ -21,13 +21,13 @@ RSpec.describe Tribes do
     end
 
     context 'for array with one element' do
-      let(:data) { ["5682439b4ec15f78a9b2d4d409bfb37e7d840a82"] }
+      let(:data) { ['5682439b4ec15f78a9b2d4d409bfb37e7d840a82'] }
 
       it { expect(subject).to eq '8303726eafff094edec319dffdf1774973aa0880' }
     end
 
     context 'for single element' do
-      let(:data) { "5682439b4ec15f78a9b2d4d409bfb37e7d840a82" }
+      let(:data) { '5682439b4ec15f78a9b2d4d409bfb37e7d840a82' }
 
       it { expect { subject }.to raise_error(ArgumentError, 'Method accepts only arrays') }
     end

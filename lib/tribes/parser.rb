@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Tribes
   module Parser
     def parse_player_list(csv_content)
