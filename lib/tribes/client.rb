@@ -46,30 +46,28 @@ module Tribes
     def village_data
       controller = ControllerServer.new(ServiceContainer::GET_VILLAGE_DATA, @configuration)
       json_response = controller.load([@session.session_id, @village_list.selected_element[0]])
-      controller.check_errors(json_response)
       json_response
     end
 
     def village_visual
       controller = ControllerServer.new(ServiceContainer::GET_VILLAGE_VISUAL, @configuration)
       json_response = controller.load([@session.session_id, @village_list.selected_element[0]])
-      controller.check_errors(json_response)
       json_response
     end
 
     def player_info
       controller = ControllerServer.new(ServiceContainer::GET_PLAYER_INFO, @configuration)
       json_response = controller.load([@session.session_id, @session.player_id])
-      controller.check_errors(json_response)
       json_response
     end
 
     def prod_building(building_id)
-      throw 'wrong building type.' unless building_id == 'wood' && building_id == 'iron' && building_id == 'clay'
+      throw 'wrong building type.' unless %w[wood iron clay].include?(building_id)
 
       controller = ControllerServer.new(ServiceContainer::GET_PROD_BUILDING, @configuration)
-      json_response = controller.load([@session.session_id, @village_list.selected_element[0], building_id.to_s])
-      controller.check_errors(json_response)
+      json_response = controller.load([@session.session_id,
+                                       @village_list.selected_element[0],
+                                       building_id.to_s])
       json_response
     end
 
@@ -82,67 +80,6 @@ module Tribes
         false
       end
     end
-
-    # def enter_world(world_id)
-    #   @world_url = find_world_url(world_id)
-    #   site = Tribes::Site::LoginWorld.new(connection: configuration.base_connection,
-    #                                       url: @world_url)
-    #   response = site.download(token: @login_token)
-    #   json_body = JSON.parse(response.body)
-    #   if json_body.key?('invalidsession')
-    #     print "INVALID SESSION\n"
-    #   else
-    #     @sid = json_body['result']['sid']
-    #   end
-    # end
-
-    # def village_data(village_id)
-    #   site = Tribes::Site::VillageData.new(connection: configuration.base_connection,
-    #                                        url: @world_url)
-    #   response = site.download(sid: @sid, village_id: village_id)
-    #   json_body = JSON.parse(response.body)
-    #   if json_body.key?('invalidsession')
-    #     print "INVALID SESSION\n"
-    #   else
-    #     json_body
-    #   end
-    # end
-
-    # def main_construction_info(village_id)
-    #   site = Tribes::Site::MainConstructionInfo.new(connection: configuration.base_connection,
-    #                                                 url: @world_url)
-    #   response = site.download(sid: @sid, village_id: village_id)
-    #   json_body = JSON.parse(response.body)
-    #   if json_body.key?('invalidsession')
-    #     print "INVALID SESSION\n"
-    #   else
-    #     json_body
-    #   end
-    # end
-    
-    # def player_list
-    #   @player_list ||= download_player_list
-    # end
-
-    # def village_list
-    #   @village_list ||= download_village_list
-    # end
-
-    # def tribe_list
-    #   @tribe_list ||= download_tribe_list
-    # end
-
-    # def world_config
-    #   @world_config ||= download_world_config
-    # end
-
-    # def building_info
-    #   @building_info ||= download_building_info
-    # end
-
-    # def unit_info
-    #   @unit_info ||= download_unit_info
-    # end
 
     private
 

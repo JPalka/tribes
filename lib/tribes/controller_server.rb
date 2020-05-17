@@ -1,4 +1,6 @@
-module Tribes 
+# frozen_string_literal: true
+
+module Tribes
   class ControllerServer
     MASTER_SERVER = 'master'
     GAME_SERVER = 'game'
@@ -9,9 +11,9 @@ module Tribes
     NO_VILLAGES = 'layer has no villages'
     HANDLE_ERRORS_LOCALLY = 'handleErrorsLocally'
     REQUEST_CONTENT_TIMEOUT_TIME = 7500 # it's in miliseconds I guess?
-    REQUEST_ACTION_TIMEOUT_TIME = 10000
+    REQUEST_ACTION_TIMEOUT_TIME = 10_000
     REQUEST_MAX_RETRIES = 1
-    
+
     def initialize(service, configuration)
       @service = service
       @configuration = configuration
@@ -19,24 +21,17 @@ module Tribes
 
     def load(data)
       json_data = data.to_json
-      connection = Faraday.new(url: create_base_url, headers: Headers.new.to_h) do |faraday|
-        faraday.use :cookie_jar
-        faraday.use FaradayMiddleware::FollowRedirects
-        faraday.response :logger
-      end
-      response = connection.post(@service.name + create_slug(data)) do |req|
+      response = create_connection.post(@service.name + create_slug(data)) do |req|
         req.body = json_data
       end
-      JSON.parse(response.body)
+      json_response = JSON.parse(response.body)
+      check_errors(json_response)
+      json_response
     end
 
     def check_errors(data)
-      begin
-        throw 'Error occured woobwoob' if check_error(data)
-      rescue
-        binding.pry
-      end
-      
+      throw 'Error occured woobwoob' if check_error(data)
+
       throw 'Session is invalid' if check_invalid_session(data)
     end
 
@@ -49,7 +44,7 @@ module Tribes
     def check_invalid_session(data)
       data.to_s.downcase.include?('"invalidsession"=>true')
     end
-    
+
     def create_slug(data)
       slug = ''
       if @service.server_type == GAME_SERVER || @service.server_type == MASTER_SERVER
@@ -57,7 +52,15 @@ module Tribes
       end
       slug
     end
-    
+
+    def create_connection
+      Faraday.new(url: create_base_url, headers: Headers.new.to_h) do |faraday|
+        faraday.use :cookie_jar
+        faraday.use FaradayMiddleware::FollowRedirects
+        faraday.response :logger
+      end
+    end
+
     def create_base_url
       base_url = ''
       case @service.server_type

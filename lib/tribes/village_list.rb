@@ -11,7 +11,7 @@ module Tribes
       @list = json_data['villages_in_current_group']
       @selected_element = json_data['default_village']
     end
-    
+
     private
 
     def post_data(session)
