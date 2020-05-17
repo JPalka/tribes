@@ -45,18 +45,18 @@ module Tribes
       @login_url = json_response['result']['login_url']
       visit_login_url
     end
-  end
 
-  # this will be replaced by proper selenium driven shenaningans and website bayo bongo
-  def visit_login_url
-    # just visit login link to make sure we are logged in. Dunno if its needed
-    connection = Faraday.new(url: @login_url, headers: Headers.new.to_h) do |faraday|
-      faraday.use :cookie_jar
-      faraday.response :logger
+    # this will be replaced by proper selenium driven shenaningans and website bayo bongo
+    def visit_login_url
+      # just visit login link to make sure we are logged in. Dunno if its needed
+      connection = Faraday.new(url: @login_url, headers: Headers.new.to_h) do |faraday|
+        faraday.use :cookie_jar
+        faraday.response :logger
+      end
+      # stoopid cookies and stupid faraday doesnt handle cookies when
+      # automatically following redirects. doing it manually works
+      req1 = connection.get
+      connection.get(@configuration.game_server + '/' + req1.headers['location'])
     end
-    # stoopid cookies and stupid faraday doesnt handle cookies when
-    # automatically following redirects. doing it manually works
-    req1 = connection.get
-    connection.get(@configuration.game_server + '/' + req1.headers['location'])
   end
 end
