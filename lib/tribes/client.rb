@@ -62,6 +62,11 @@ module Tribes
             .load([@session.session_id, 0])
     end
 
+    def map
+      Server.new(ServiceContainer::GET_MAP_DATA, @configuration)
+            .load([@session.session_id, @village_list.selected_element[0]])
+    end
+
     def prod_building(building_id)
       throw 'wrong building type.' unless %w[wood iron clay].include?(building_id)
 
