@@ -57,6 +57,11 @@ module Tribes
       controller.load([@session.session_id, @session.player_id])
     end
 
+    def heartbeat
+      Server.new(ServiceContainer::GET_GAME_DATA, @configuration)
+            .load([@session.session_id, 0])
+    end
+
     def prod_building(building_id)
       throw 'wrong building type.' unless %w[wood iron clay].include?(building_id)
 
