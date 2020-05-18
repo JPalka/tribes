@@ -67,6 +67,21 @@ module Tribes
             .load([@session.session_id, @village_list.selected_element[0]])
     end
 
+    def construction_info
+      Server.new(ServiceContainer::GET_MAIN_INFO, @configuration)
+            .load([@session.session_id, @village_list.selected_element[0]])
+    end
+    
+    def downgrades
+      Server.new(ServiceContainer::GET_MAIN_DOWNGRADES, @configuration)
+            .load([@session.session_id, @village_list.selected_element[0]])
+    end
+
+    def main_upgrade_info(building_id)
+      Server.new(ServiceContainer::GET_MAIN_UPGRADE_INFO, @configuration)
+            .load([@session.session_id, @village_list.selected_element[0], building_id])
+    end
+
     def prod_building(building_id)
       throw 'wrong building type.' unless %w[wood iron clay].include?(building_id)
 
