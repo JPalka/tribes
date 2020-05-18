@@ -43,18 +43,18 @@ module Tribes
     end
 
     def village_data
-      controller = Server.new(ServiceContainer::GET_VILLAGE_DATA, @configuration)
-      controller.load([@session.session_id, @village_list.selected_element[0]])
+      Server.new(ServiceContainer::GET_VILLAGE_DATA, @configuration)
+            .load([@session.session_id, @village_list.selected_element[0]])
     end
 
     def village_visual
-      controller = Server.new(ServiceContainer::GET_VILLAGE_VISUAL, @configuration)
-      controller.load([@session.session_id, @village_list.selected_element[0]])
+      Server.new(ServiceContainer::GET_VILLAGE_VISUAL, @configuration)
+            .load([@session.session_id, @village_list.selected_element[0]])
     end
 
     def player_info
-      controller = Server.new(ServiceContainer::GET_PLAYER_INFO, @configuration)
-      controller.load([@session.session_id, @session.player_id])
+      Server.new(ServiceContainer::GET_PLAYER_INFO, @configuration)
+            .load([@session.session_id, @session.player_id])
     end
 
     def heartbeat
@@ -71,7 +71,7 @@ module Tribes
       Server.new(ServiceContainer::GET_MAIN_INFO, @configuration)
             .load([@session.session_id, @village_list.selected_element[0]])
     end
-    
+
     def downgrades
       Server.new(ServiceContainer::GET_MAIN_DOWNGRADES, @configuration)
             .load([@session.session_id, @village_list.selected_element[0]])
@@ -85,8 +85,8 @@ module Tribes
     def prod_building(building_id)
       throw 'wrong building type.' unless %w[wood iron clay].include?(building_id)
 
-      controller = Server.new(ServiceContainer::GET_PROD_BUILDING, @configuration)
-      controller.load([@session.session_id, @village_list.selected_element[0], building_id.to_s])
+      Server.new(ServiceContainer::GET_PROD_BUILDING, @configuration)
+            .load([@session.session_id, @village_list.selected_element[0], building_id.to_s])
     end
 
     def change_world(world_id)
