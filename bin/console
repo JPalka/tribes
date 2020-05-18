@@ -3,7 +3,7 @@
 
 require 'bundler/setup'
 require 'tribes'
-
+require 'pry'
 # You can add fixtures and/or initialization code here to make experimenting
 # with your gem easier. You can also use a different console, if you like.
 
@@ -11,5 +11,11 @@ require 'tribes'
 # require "pry"
 # Pry.start
 
-require 'irb'
-IRB.start(__FILE__)
+c = Tribes::Client.new
+
+c.login
+c.change_world 'en111'
+c.login_to_world
+
+binding.pry
+#Pry.start(__FILE__)
