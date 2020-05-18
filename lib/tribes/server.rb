@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Tribes
-  class ControllerServer
+  class Server
     MASTER_SERVER = 'master'
     GAME_SERVER = 'game'
     PAYMENT_SERVER = 'pay'

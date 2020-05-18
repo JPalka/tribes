@@ -4,7 +4,7 @@ module Tribes
   class WorldList < DataList
     def initialize(configuration)
       super(configuration)
-      @controller = ControllerServer.new(ServiceContainer::GET_WORLDS, @configuration)
+      @controller = Server.new(ServiceContainer::GET_WORLDS, @configuration)
     end
 
     def load(json_data)

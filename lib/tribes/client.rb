@@ -43,24 +43,24 @@ module Tribes
     end
 
     def village_data
-      controller = ControllerServer.new(ServiceContainer::GET_VILLAGE_DATA, @configuration)
+      controller = Server.new(ServiceContainer::GET_VILLAGE_DATA, @configuration)
       controller.load([@session.session_id, @village_list.selected_element[0]])
     end
 
     def village_visual
-      controller = ControllerServer.new(ServiceContainer::GET_VILLAGE_VISUAL, @configuration)
+      controller = Server.new(ServiceContainer::GET_VILLAGE_VISUAL, @configuration)
       controller.load([@session.session_id, @village_list.selected_element[0]])
     end
 
     def player_info
-      controller = ControllerServer.new(ServiceContainer::GET_PLAYER_INFO, @configuration)
+      controller = Server.new(ServiceContainer::GET_PLAYER_INFO, @configuration)
       controller.load([@session.session_id, @session.player_id])
     end
 
     def prod_building(building_id)
       throw 'wrong building type.' unless %w[wood iron clay].include?(building_id)
 
-      controller = ControllerServer.new(ServiceContainer::GET_PROD_BUILDING, @configuration)
+      controller = Server.new(ServiceContainer::GET_PROD_BUILDING, @configuration)
       controller.load([@session.session_id, @village_list.selected_element[0], building_id.to_s])
     end
 

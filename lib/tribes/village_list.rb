@@ -4,7 +4,7 @@ module Tribes
   class VillageList < DataList
     def initialize(configuration)
       super(configuration)
-      @controller = ControllerServer.new(ServiceContainer::GET_VILLAGES, @configuration)
+      @controller = Server.new(ServiceContainer::GET_VILLAGES, @configuration)
     end
 
     def load(json_data)

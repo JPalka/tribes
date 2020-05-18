@@ -15,7 +15,7 @@ module Tribes
     end
 
     def login_to_market(username, password)
-      controller = ControllerServer.new(ServiceContainer::DO_LOGIN_TO_MARKET, @configuration)
+      controller = Server.new(ServiceContainer::DO_LOGIN_TO_MARKET, @configuration)
       json_response = controller.load([username, password, '2.30.0'])
       controller.check_errors(json_response)
       login_to_market_success(json_response)
@@ -23,7 +23,7 @@ module Tribes
     end
 
     def login_to_world
-      controller = ControllerServer.new(ServiceContainer::DO_LOGIN_TO_WORLD, @configuration)
+      controller = Server.new(ServiceContainer::DO_LOGIN_TO_WORLD, @configuration)
       json_response = controller.load([@token, 2, 'android'])
       controller.check_errors(json_response)
       login_to_world_success(json_response)
