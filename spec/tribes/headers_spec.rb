@@ -11,7 +11,7 @@ RSpec.describe Tribes::Headers do
     it 'has default headers set' do
       expect(subject.to_h).to eq(
         {
-          'Accept-Encoding' => 'deflate, gzip',
+          # 'Accept-Encoding' => 'deflate, gzip',
           'User-Agent' => 'Mozilla/5.0 (Android; U; pl-PL) AppleWebKit/533.19.4 (KHTML,like Gecko) AdobeAIR/31.0',
           'x-flash-version' => '31,0,0,101',
           'Connection' => 'Keep-Alive',
