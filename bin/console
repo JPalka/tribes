@@ -16,6 +16,7 @@ c = Tribes::Client.new
 c.login
 c.change_world 'en111'
 c.login_to_world
+c.villages
 
 binding.pry
 #Pry.start(__FILE__)
