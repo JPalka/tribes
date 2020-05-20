@@ -31,7 +31,7 @@ module Tribes
     end
 
     def host(host)
-      @host = host + '/'
+      @host = host.gsub(%r{https://|http://}, '') + '/'
       self
     end
 

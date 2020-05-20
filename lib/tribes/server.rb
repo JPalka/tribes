@@ -21,7 +21,7 @@ module Tribes
 
     def load(data)
       json_data = data.to_json
-      response = create_connection.post(@service.name + create_slug(data)) do |req|
+      response = create_connection(create_url(data)).post do |req|
         req.body = json_data
       end
       json_response = JSON.parse(response.body)
@@ -45,33 +45,31 @@ module Tribes
       data.to_s.downcase.include?('"invalidsession"=>true')
     end
 
-    def create_slug(data)
-      slug = ''
-      if @service.server_type == GAME_SERVER || @service.server_type == MASTER_SERVER
-        slug += '?hash=' + Tribes.calculate_mobile_hash(data)
-      end
-      slug
-    end
-
-    def create_connection
-      Faraday.new(url: create_base_url, headers: Headers.new.to_h) do |faraday|
+    def create_connection(url)
+      Faraday.new(url: url, headers: Headers.new.to_h) do |faraday|
         faraday.use :cookie_jar
         faraday.use FaradayMiddleware::FollowRedirects
         faraday.response :logger
       end
     end
 
-    def create_base_url
-      base_url = ''
+    def create_url(data)
+      url_builder = Tribes::URLBuilder.new.https
+      handle_service_type(url_builder)
+      url_builder.add_query_param('hash', Tribes.calculate_mobile_hash(data)) if data
+      url_builder.service(@service.name)
+      url_builder.url
+    end
+
+    def handle_service_type(builder)
       case @service.server_type
       when GAME_SERVER
-        base_url = @configuration.game_server + '/m/g/'
+        builder.host(@configuration.game_server).game_server_api
       when MASTER_SERVER
-        base_url = @configuration.master_server + '/m/m/'
+        builder.host(@configuration.master_server).master_server_api
       else
         throw 'Error. Invalid service server type'
       end
-      base_url
     end
   end
 end

@@ -12,6 +12,7 @@ module Tribes
         next if world_group == 'current'
 
         json_data[world_group].each do |world|
+          world['url'].gsub!('https://', '')
           @list.push(world)
         end
       end
