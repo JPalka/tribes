@@ -13,6 +13,11 @@ require 'tribes/village_list'
 require 'tribes/world_list'
 require 'tribes/client'
 require 'tribes/url_builder'
+require 'tribes/browser'
+require 'tribes/sites'
+require 'capybara'
+require 'capybara/apparition'
+require 'selenium-webdriver'
 require 'uri'
 require 'faraday'
 require 'faraday_middleware'
@@ -31,5 +36,10 @@ module Tribes
     secret = '2sB2jaeNEG6C01QOTldcgCKO'
     payload = secret + '-' + data.to_json
     Digest::SHA1.hexdigest(payload)
+  end
+
+  # convert 'HH:MM:SS' time string to timestamp
+  def self.convert_time_str_to_timestamp(time_str)
+    time_str.split(':').map(&:to_i).inject(0) { |a, b| a * 60 + b }
   end
 end

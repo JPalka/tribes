@@ -2,6 +2,7 @@
 
 module Tribes
   class Client
+    attr_reader :browser
     include Tribes::Parser
 
     def initialize(options = {})
@@ -10,6 +11,7 @@ module Tribes
       @session = Session.new(@configuration)
       @world_list = WorldList.new(@configuration)
       @village_list = VillageList.new(@configuration)
+      @browser = Browser.new(@session, @configuration, @village_list)
     end
 
     def configuration
@@ -33,7 +35,7 @@ module Tribes
     def login_to_world
       throw 'Choose a fucking world' unless @configuration.game_server
 
-      @session.login_to_world
+      @session.login_to_world(@browser)
     end
 
     def villages
@@ -79,6 +81,11 @@ module Tribes
 
     def main_upgrade_info(building_id)
       Server.new(ServiceContainer::GET_MAIN_UPGRADE_INFO, @configuration)
+            .load([@session.session_id, @village_list.selected_element[0], building_id])
+    end
+
+    def recruitment_info(building_id = 'all')
+      Server.new(ServiceContainer::GET_RECRUITMENT_UNITS, @configuration)
             .load([@session.session_id, @village_list.selected_element[0], building_id])
     end
 

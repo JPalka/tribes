@@ -37,7 +37,11 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'webmock', '~> 3.8'
 
   spec.add_runtime_dependency 'activesupport', '~> 6.0'
+  spec.add_runtime_dependency 'apparition'
+  spec.add_runtime_dependency 'capybara', '~> 3'
   spec.add_runtime_dependency 'faraday', '~> 1.0'
   spec.add_runtime_dependency 'faraday-cookie_jar', '0.0.6'
   spec.add_runtime_dependency 'faraday_middleware', '~> 1.0'
+  spec.add_runtime_dependency 'nokogiri', '~> 1'
+  spec.add_runtime_dependency 'selenium-webdriver', '~> 3'
 end
