@@ -4,6 +4,7 @@ module Tribes
   class Client
     attr_reader :browser
     include Tribes::Parser
+    include Tribes::Recruitment
 
     def initialize(options = {})
       @configuration = Configuration.new
@@ -81,11 +82,6 @@ module Tribes
 
     def main_upgrade_info(building_id)
       Server.new(ServiceContainer::GET_MAIN_UPGRADE_INFO, @configuration)
-            .load([@session.session_id, @village_list.selected_element[0], building_id])
-    end
-
-    def recruitment_info(building_id = 'all')
-      Server.new(ServiceContainer::GET_RECRUITMENT_UNITS, @configuration)
             .load([@session.session_id, @village_list.selected_element[0], building_id])
     end
 

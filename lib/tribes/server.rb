@@ -30,7 +30,7 @@ module Tribes
     end
 
     def check_errors(data)
-      throw 'Error occured woobwoob' if check_error(data)
+      throw "Error occured woobwoob. Dump:#{data}" if check_error(data)
 
       throw 'Session is invalid' if check_invalid_session(data)
     end

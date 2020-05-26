@@ -5,6 +5,10 @@ module Tribes
     DO_LOGIN_TO_MARKET = DataService.new(Server::MASTER_SERVER, 'login', 'POST', true)
     DO_LOGIN_TO_WORLD = DataService.new(Server::GAME_SERVER, 'login', 'POST', true)
 
+    DO_RECRUITMENT_RECRUIT = DataService.new(Server::GAME_SERVER, 'train_do_train', 'POST', true)
+    DO_RECRUITMENT_CANCEL = DataService.new(Server::GAME_SERVER, 'train_cancel', 'POST', true)
+    DO_RECRUITMENT_REORDER = DataService.new(Server::GAME_SERVER, 'train_reorder', 'POST', true)
+
     GET_WORLDS = DataService.new(Server::MASTER_SERVER, 'worlds', 'POST', false)
     GET_VILLAGES = DataService.new(Server::GAME_SERVER, 'villages_get', 'POST', false)
     GET_VILLAGE_DATA = DataService.new(Server::GAME_SERVER, 'village_data', 'POST', false)
