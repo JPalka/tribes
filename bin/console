@@ -18,5 +18,6 @@ c.change_world 'en111'
 c.login_to_world
 c.villages
 # c.browser.load_page 'place_scavenge'
+c.browser.load_page 'world_config'
 binding.pry
 #Pry.start(__FILE__)

@@ -5,6 +5,7 @@ require 'tribes/sites/place_scavenge'
 require 'tribes/sites/player_list'
 require 'tribes/sites/village_list'
 require 'tribes/sites/tribe_list'
+require 'tribes/sites/world_config'
 
 require 'tribes/sites/extractor'
 require 'tribes/sites/unit_counts'

@@ -5,8 +5,7 @@ module Tribes
     class ConfigXml < Extractor
       def extract(data)
         doc = Nokogiri::HTML(data)
-        xml = doc.css('div#webkit-xml-viewer-source-xml').first.content
-
+        xml = doc.css('div#webkit-xml-viewer-source-xml config').to_s
         { config: Hash.from_xml(xml)['config'] }
       end
     end
