@@ -52,7 +52,7 @@ module Tribes
     end
 
     def create_pages
-      [Sites::PlaceScavenge.new(@browser_session)]
+      [Sites::PlaceScavenge.new(@browser_session), Sites::PlayerList.new(@browser_session)]
     end
 
     def set_headers
