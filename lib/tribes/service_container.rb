@@ -9,6 +9,10 @@ module Tribes
     DO_RECRUITMENT_CANCEL = DataService.new(Server::GAME_SERVER, 'train_cancel', 'POST', true)
     DO_RECRUITMENT_REORDER = DataService.new(Server::GAME_SERVER, 'train_reorder', 'POST', true)
 
+    DO_MAIN_UPGRADE = DataService.new(Server::GAME_SERVER, 'main_do_upgrade', 'POST', true)
+    DO_MAIN_CANCEL = DataService.new(Server::GAME_SERVER, 'main_cancel', 'POST', true)
+    DO_MAIN_REORDER = DataService.new(Server::GAME_SERVER, 'main_reorder', 'POST', true)
+
     GET_WORLDS = DataService.new(Server::MASTER_SERVER, 'worlds', 'POST', false)
     GET_VILLAGES = DataService.new(Server::GAME_SERVER, 'villages_get', 'POST', false)
     GET_VILLAGE_DATA = DataService.new(Server::GAME_SERVER, 'village_data', 'POST', false)

@@ -5,6 +5,7 @@ module Tribes
     attr_reader :browser
     include Tribes::Parser
     include Tribes::Recruitment
+    include Tribes::Construction
 
     def initialize(options = {})
       @configuration = Configuration.new
@@ -68,21 +69,6 @@ module Tribes
     def map
       Server.new(ServiceContainer::GET_MAP_DATA, @configuration)
             .load([@session.session_id, @village_list.selected_element[0]])
-    end
-
-    def construction_info
-      Server.new(ServiceContainer::GET_MAIN_INFO, @configuration)
-            .load([@session.session_id, @village_list.selected_element[0]])
-    end
-
-    def downgrades
-      Server.new(ServiceContainer::GET_MAIN_DOWNGRADES, @configuration)
-            .load([@session.session_id, @village_list.selected_element[0]])
-    end
-
-    def main_upgrade_info(building_id)
-      Server.new(ServiceContainer::GET_MAIN_UPGRADE_INFO, @configuration)
-            .load([@session.session_id, @village_list.selected_element[0], building_id])
     end
 
     def prod_building(building_id)
