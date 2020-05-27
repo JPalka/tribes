@@ -13,6 +13,7 @@ require 'tribes/sites/village_data'
 require 'tribes/sites/players_csv'
 require 'tribes/sites/villages_csv'
 require 'tribes/sites/tribes_csv'
+require 'tribes/sites/config_xml'
 
 module Tribes
   module Sites
