@@ -17,6 +17,20 @@ module Tribes
       def set_extractors
         [Tribes::Extractors::MerchantCounts.new]
       end
+
+      def trades(want, offer, time_limit = 96)
+        setup(want, offer, time_limit)
+      end
+
+      private
+
+      def setup(want, offer, time_limit)
+        @browser.find("input:not([clicked])[name=\"res_sell\"][value=\"#{want}\"]").click
+        sleep(1)
+        @browser.find("input:not([clicked])[name=\"res_buy\"][value=\"#{offer}\"]").click
+        sleep(1)
+        @browser.find("option[value='#{time_limit}']").select_option
+      end
     end
   end
 end
