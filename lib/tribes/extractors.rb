@@ -1,0 +1,15 @@
+# frozen_string_literal: true
+
+require 'tribes/extractors/extractor'
+require 'tribes/extractors/unit_counts'
+require 'tribes/extractors/scavenging_groups'
+require 'tribes/extractors/village_data'
+require 'tribes/extractors/players_csv'
+require 'tribes/extractors/villages_csv'
+require 'tribes/extractors/tribes_csv'
+require 'tribes/extractors/config_xml'
+
+module Tribes
+  module Extractors
+  end
+end

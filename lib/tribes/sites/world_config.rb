@@ -13,7 +13,7 @@ module Tribes
       end
 
       def set_extractors
-        [ConfigXml.new]
+        [Tribes::Extractors::ConfigXml.new]
       end
     end
   end

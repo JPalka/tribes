@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Tribes
-  module Sites
+  module Extractors
     class ConfigXml < Extractor
       def extract(data)
         doc = Nokogiri::HTML(data)

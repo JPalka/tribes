@@ -13,7 +13,7 @@ module Tribes
       end
 
       def set_extractors
-        [PlayersCsv.new]
+        [Tribes::Extractors::PlayersCsv.new]
       end
     end
   end

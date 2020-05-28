@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Tribes
-  module Sites
+  module Extractors
     class Extractor
       def extract(data); end
 

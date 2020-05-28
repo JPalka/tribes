@@ -40,7 +40,8 @@ module Tribes
       end
 
       def set_extractors
-        @extractors = [UnitCounts.new, ScavengingGroups.new, VillageData.new]
+        @extractors = [Tribes::Extractors::UnitCounts.new, Tribes::Extractors::ScavengingGroups.new,
+                       Tribes::Extractors::VillageData.new]
       end
 
       private
