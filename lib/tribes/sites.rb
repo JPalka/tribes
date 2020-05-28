@@ -6,6 +6,7 @@ require 'tribes/sites/player_list'
 require 'tribes/sites/village_list'
 require 'tribes/sites/tribe_list'
 require 'tribes/sites/world_config'
+require 'tribes/sites/market_trade'
 
 module Tribes
   module Sites
