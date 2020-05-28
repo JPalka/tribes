@@ -6,8 +6,7 @@ module Tribes
       def extract(data)
         doc = Nokogiri::HTML(data)
         result = { trades: [] }
-        trades_rows = doc.css('#content_value > table > tbody > tr > td > table:nth-child(5) tr')
-
+        trades_rows = doc.css('#content_value > table > tbody > tr > td > table:last-child tr')
         trades_rows.drop(3).each_slice(2) do |row_info, row_form|
           result[:trades].push(extract_trade_offer(row_info, row_form))
         end
