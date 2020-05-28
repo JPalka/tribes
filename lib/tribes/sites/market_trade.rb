@@ -15,7 +15,7 @@ module Tribes
       end
 
       def set_extractors
-        []
+        [Tribes::Extractors::MerchantCounts.new]
       end
     end
   end

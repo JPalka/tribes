@@ -8,6 +8,7 @@ require 'tribes/extractors/players_csv'
 require 'tribes/extractors/villages_csv'
 require 'tribes/extractors/tribes_csv'
 require 'tribes/extractors/config_xml'
+require 'tribes/extractors/merchant_counts'
 
 module Tribes
   module Extractors
