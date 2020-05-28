@@ -15,7 +15,7 @@ module Tribes
       end
 
       def set_extractors
-        [Tribes::Extractors::MerchantCounts.new]
+        [Tribes::Extractors::MerchantCounts.new, Tribes::Extractors::TradeOffers.new]
       end
 
       def trades(want, offer, time_limit = 96)
