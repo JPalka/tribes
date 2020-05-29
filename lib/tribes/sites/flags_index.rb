@@ -15,7 +15,7 @@ module Tribes
       end
 
       def set_extractors
-        []
+        [Tribes::Extractors::Flags.new]
       end
     end
   end

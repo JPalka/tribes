@@ -33,7 +33,18 @@ require 'pry'
 
 module Tribes
   class Error < StandardError; end
-  # Your code goes here...
+
+  FLAG_CATEGORIES = {
+    1 => 'resource_production',
+    2 => 'recruit_speed',
+    3 => 'attack_boost',
+    4 => 'defense_boost',
+    5 => 'luck',
+    6 => 'population_cap',
+    7 => 'coin_discount',
+    8 => 'haul_capacity'
+  }.freeze
+
   def self.calculate_mobile_hash(data)
     raise ArgumentError, 'Method accepts only arrays' unless data.is_a?(Array)
 

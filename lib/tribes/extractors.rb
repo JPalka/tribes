@@ -12,6 +12,7 @@ require 'tribes/extractors/merchant_counts'
 require 'tribes/extractors/trade_offers'
 require 'tribes/extractors/trades_pending'
 require 'tribes/extractors/premium_exchange'
+require 'tribes/extractors/flags'
 
 module Tribes
   module Extractors
