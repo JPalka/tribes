@@ -22,6 +22,14 @@ module Tribes
         setup(want, offer, time_limit)
       end
 
+      def trade(trade_id, count)
+        form = @browser.find("input[name='id'][value='#{trade_id}']", visible: false)
+                       .first(:xpath, './/..')
+        form.find("input[name='count']").set(count)
+        sleep(1)
+        form.find("input[type='submit']").click
+      end
+
       private
 
       def setup(want, offer, time_limit)
