@@ -38,7 +38,7 @@ module Tribes
       #   Capybara::Selenium::Driver.new(app, browser: :firefox)
       # end
       Capybara.register_driver :apparition do |app|
-        Capybara::Apparition::Driver.new(app, headless: false)
+        Capybara::Apparition::Driver.new(app, headless: false, js_errors: false)
       end
       Capybara.javascript_driver = :apparition
       Capybara.configure do |config|

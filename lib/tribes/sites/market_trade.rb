@@ -23,14 +23,26 @@ module Tribes
       end
 
       def trade(trade_id, count)
-        form = @browser.find("input[name='id'][value='#{trade_id}']", visible: false)
-                       .first(:xpath, './/..')
+        form = find_offer(trade_id)
         form.find("input[name='count']").set(count)
         sleep(1)
         form.find("input[type='submit']").click
+
+        begin
+          error = @browser.find('div.error_box div.content').text
+          raise "Error occured: #{error}"
+        rescue Capybara::ElementNotFound
+          true
+        end
       end
 
       private
+
+      def find_offer(trade_id)
+        @browser.find("input[name='id'][value='#{trade_id}']", visible: false).first(:xpath, './/..')
+      rescue Capybara::ElementNotFound
+        raise "Trade offer #{trade_id} not found"
+      end
 
       def setup(want, offer, time_limit)
         @browser.find("input:not([clicked])[name=\"res_sell\"][value=\"#{want}\"]").click
