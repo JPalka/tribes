@@ -11,6 +11,7 @@ require 'tribes/extractors/config_xml'
 require 'tribes/extractors/merchant_counts'
 require 'tribes/extractors/trade_offers'
 require 'tribes/extractors/trades_pending'
+require 'tribes/extractors/premium_exchange'
 
 module Tribes
   module Extractors

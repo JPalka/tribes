@@ -8,6 +8,7 @@ require 'tribes/sites/tribe_list'
 require 'tribes/sites/world_config'
 require 'tribes/sites/market_trade'
 require 'tribes/sites/market_merchants'
+require 'tribes/sites/market_premium'
 
 module Tribes
   module Sites
