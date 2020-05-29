@@ -28,13 +28,6 @@ module Tribes
         trade_offer[:id] = row_form.css('input[name="id"]').attr('value').value
         trade_offer
       end
-
-      def extract_resource(td)
-        resource = { id: 'shitgarbage', amount: 0 }
-        resource[:amount] = td.css('span.nowrap').text.gsub('.', '').to_i
-        resource[:id] = td.css('span.nowrap span.icon').first.classes[2]
-        resource
-      end
     end
   end
 end
