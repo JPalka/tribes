@@ -10,6 +10,7 @@ require 'tribes/extractors/tribes_csv'
 require 'tribes/extractors/config_xml'
 require 'tribes/extractors/merchant_counts'
 require 'tribes/extractors/trade_offers'
+require 'tribes/extractors/trades_pending'
 
 module Tribes
   module Extractors

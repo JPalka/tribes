@@ -54,7 +54,8 @@ module Tribes
     def create_pages
       [Sites::PlaceScavenge.new(@browser_session), Sites::PlayerList.new(@browser_session),
        Sites::VillageList.new(@browser_session), Sites::TribeList.new(@browser_session),
-       Sites::WorldConfig.new(@browser_session), Sites::MarketTrade.new(@browser_session)]
+       Sites::WorldConfig.new(@browser_session), Sites::MarketTrade.new(@browser_session),
+       Sites::MarketMerchants.new(@browser_session)]
     end
 
     def set_headers
