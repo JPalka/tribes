@@ -13,6 +13,8 @@ module Tribes
     DO_MAIN_CANCEL = DataService.new(Server::GAME_SERVER, 'main_cancel', 'POST', true)
     DO_MAIN_REORDER = DataService.new(Server::GAME_SERVER, 'main_reorder', 'POST', true)
 
+    DO_QUEST_COMPLETE = DataService.new(Server::GAME_SERVER, 'quests_complete', 'POST', true)
+
     GET_WORLDS = DataService.new(Server::MASTER_SERVER, 'worlds', 'POST', false)
     GET_VILLAGES = DataService.new(Server::GAME_SERVER, 'villages_get', 'POST', false)
     GET_VILLAGE_DATA = DataService.new(Server::GAME_SERVER, 'village_data', 'POST', false)

@@ -7,6 +7,12 @@ module Tribes
             .load([@session.session_id, @session.player_id])
     end
 
-    def quest_complete; end
+    def quest_finish(quest_id)
+      Server.new(ServiceContainer::DO_QUEST_COMPLETE, @configuration)
+            .load([@session.session_id,
+                   @village_list.selected_element[0],
+                   quest_id,
+                   false])
+    end
   end
 end
