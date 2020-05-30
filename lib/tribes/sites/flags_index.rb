@@ -19,13 +19,33 @@ module Tribes
       end
 
       def upgrade_flag(category, level)
-        category_number = Tribes::FLAG_CATEGORIES.key(category) || category
+        category_number = resolve_category(category)
         begin
           @browser.find("div#flag_box_#{category_number}_#{level} div.flag_upgrade").click
           true
         rescue Capybara::ElementNotFound
           false
         end
+      end
+
+      def assign_flag(category, level)
+        category_number = resolve_category(category)
+        begin
+          @browser.find("div#flag_box_#{category_number}_#{level}").click
+          sleep(1)
+          @browser.find('a.btn-confirm-yes').click
+          sleep(1)
+          @browser.find('div#confirmation-box button.btn-confirm-yes').click
+          true
+        rescue Capybara::ElementNotFound
+          false
+        end
+      end
+
+      private
+
+      def resolve_category(category)
+        Tribes::FLAG_CATEGORIES.key(category) || category
       end
     end
   end
