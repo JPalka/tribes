@@ -15,6 +15,7 @@ module Tribes
             end
         end
         result[:active_flag] = flag_from_img(doc.css('div#current_flag img').attr('src'))
+        result[:flag_cooldown] = Tribes.convert_time_str_to_timestamp(doc.css('span.cooldown').text)
         result
       end
 
