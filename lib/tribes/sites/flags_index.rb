@@ -42,6 +42,13 @@ module Tribes
         end
       end
 
+      def remove_flag
+        @browser.find('div#current_flag a').click
+        @browser.has_css?('div.error') ? false : true
+      rescue Capybara::ElementNotFound
+        false
+      end
+
       private
 
       def resolve_category(category)
