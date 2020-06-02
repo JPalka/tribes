@@ -14,16 +14,16 @@ require 'pry'
 c = Tribes::Client.new
 
 c.login
-c.change_world 'en111'
-# c.change_world 'en114'
+# c.change_world 'en111'
+c.change_world 'en114'
 c.login_to_world
 c.villages
 # c.browser.load_page 'place_scavenge'
 # c.browser.load_page 'world_config'
 # c.browser.load_page 'market_trade'
 # c.browser.load_page 'market_merchants'
-# c.browser.load_page 'market_premium'
+c.browser.load_page 'market_premium'
 # c.browser.load_page 'flags_index'
-c.browser.load_page 'smithy'
+# c.browser.load_page 'smithy'
 binding.pry
 #Pry.start(__FILE__)
