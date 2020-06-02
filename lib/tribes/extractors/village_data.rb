@@ -6,9 +6,9 @@ module Tribes
       def extract(data)
         var = /(village = )({[^;]*)/.match(data)
         if var
-          { villageData: JSON.parse(var[2].to_s).to_h }
+          { village_data: JSON.parse(var[2].to_s).to_h }
         else
-          { villageData: {} }
+          { village_data: {} }
         end
       end
     end
