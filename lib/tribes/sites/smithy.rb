@@ -14,7 +14,7 @@ module Tribes
       end
 
       def set_extractors
-        []
+        [Tribes::Extractors::Tech.new]
       end
     end
   end

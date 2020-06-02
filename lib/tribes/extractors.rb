@@ -13,6 +13,7 @@ require 'tribes/extractors/trade_offers'
 require 'tribes/extractors/trades_pending'
 require 'tribes/extractors/premium_exchange'
 require 'tribes/extractors/flags'
+require 'tribes/extractors/tech'
 
 module Tribes
   module Extractors
