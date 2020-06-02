@@ -22,6 +22,7 @@ c.villages
 # c.browser.load_page 'market_trade'
 # c.browser.load_page 'market_merchants'
 # c.browser.load_page 'market_premium'
-c.browser.load_page 'flags_index'
+# c.browser.load_page 'flags_index'
+c.browser.load_page 'smithy'
 binding.pry
 #Pry.start(__FILE__)

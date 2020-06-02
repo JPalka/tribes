@@ -10,6 +10,7 @@ require 'tribes/sites/market_trade'
 require 'tribes/sites/market_merchants'
 require 'tribes/sites/market_premium'
 require 'tribes/sites/flags_index'
+require 'tribes/sites/smithy'
 
 module Tribes
   module Sites
