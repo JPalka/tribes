@@ -29,6 +29,13 @@ module Tribes
         end
         false
       end
+
+      def cancel_research
+        return false unless @browser.has_css?('div#current_research a')
+
+        @browser.find('div#current_research a').click
+        true
+      end
     end
   end
 end
