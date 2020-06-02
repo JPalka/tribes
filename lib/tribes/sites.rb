@@ -11,6 +11,7 @@ require 'tribes/sites/market_merchants'
 require 'tribes/sites/market_premium'
 require 'tribes/sites/flags_index'
 require 'tribes/sites/smithy'
+require 'tribes/sites/overview'
 
 module Tribes
   module Sites

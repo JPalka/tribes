@@ -4,7 +4,12 @@ module Tribes
   module Extractors
     class VillageData < Extractor
       def extract(data)
-        { villageData: JSON.parse(/(village = )({[^;]*)/.match(data)[2].to_s).to_h }
+        var = /(village = )({[^;]*)/.match(data)
+        if var
+          { villageData: JSON.parse(var[2].to_s).to_h }
+        else
+          { villageData: {} }
+        end
       end
     end
   end
