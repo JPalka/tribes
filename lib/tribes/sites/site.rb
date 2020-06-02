@@ -20,6 +20,10 @@ module Tribes
       private
 
       def set_extractors; end
+
+      def clear_inputs
+        @browser.all('input').each { |input| input.set('') }
+      end
     end
   end
 end
