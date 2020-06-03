@@ -14,8 +14,8 @@ module Tribes
       # Extract type and quantity of resource from table cell
       def extract_resource(td)
         resource = { id: 'shitgarbage', amount: 0 }
-        resource[:amount] = td.css('span.nowrap').text.gsub('.', '').to_i
-        resource[:id] = td.css('span.nowrap span.icon').first.classes[2]
+        resource[:amount] = td.text.gsub('.', '').to_i
+        resource[:id] = td.css('span.icon').first.classes[2]
         resource
       end
     end
