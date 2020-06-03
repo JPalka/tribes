@@ -13,10 +13,21 @@ module Tribes
 
       # Extract type and quantity of resource from table cell
       def extract_resource(td)
-        resource = { id: 'shitgarbage', amount: 0 }
-        resource[:amount] = td.text.gsub('.', '').to_i
-        resource[:id] = td.css('span.icon').first.classes[2]
-        resource
+        regular_res = td.css('span.nowrap')
+        result = {}
+        # assigno di regularo resourcino: woodini, stonello, ironini
+        regular_res.each do |span|
+          resource = {}
+          resource[:amount] = span.text.gsub('.', '').to_i
+          resource[:id] = span.css('span.icon').first.classes[2]
+          result[resource[:id]] = resource[:amount] if resource[:amount].positive?
+        end
+        # handlino premiumo pointes
+        resource = {}
+        resource[:amount] = td.xpath('text()').text.to_i
+        resource[:id] = td.css('> span.icon').first.classes[2]
+        result[resource[:id]] = resource[:amount] if resource[:amount].positive?
+        result
       end
     end
   end
