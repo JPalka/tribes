@@ -25,7 +25,7 @@ module Tribes
         trade_offer[:duration] = Tribes.convert_time_str_to_timestamp(info_cells[3].text)
         trade_offer[:count] = info_cells[4].text.to_i
 
-        trade_offer[:id] = row_form.css('input[name="id"]').attr('value').value
+        trade_offer[:id] = row_form.css('input[name="id"]').attr('value')&.value
         trade_offer
       end
     end
