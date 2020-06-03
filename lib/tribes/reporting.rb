@@ -10,5 +10,14 @@ module Tribes
                    page,
                    page_size])
     end
+
+    def report(report_id, filter = 'all', group = 0, village_id = @village_list.selected_element[0])
+      Server.new(ServiceContainer::GET_REPORT, @configuration)
+            .load([@session.session_id,
+                   report_id,
+                   filter,
+                   group,
+                   village_id])
+    end
   end
 end
