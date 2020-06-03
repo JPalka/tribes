@@ -24,6 +24,18 @@ module Tribes
       def clear_inputs
         @browser.all('input').each { |input| input.set('') }
       end
+
+      def fill_units_form(units)
+        begin
+          units.each do |unit, count|
+            @browser.find("input[name=#{unit}]").set(count)
+          end
+        rescue Capybara::ElementNotFound
+          clear_inputs
+          return false
+        end
+        true
+      end
     end
   end
 end

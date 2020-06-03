@@ -12,6 +12,7 @@ require 'tribes/sites/market_premium'
 require 'tribes/sites/flags_index'
 require 'tribes/sites/smithy'
 require 'tribes/sites/overview'
+require 'tribes/sites/place_command'
 
 module Tribes
   module Sites
