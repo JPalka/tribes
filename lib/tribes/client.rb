@@ -7,6 +7,7 @@ module Tribes
     include Tribes::Recruitment
     include Tribes::Construction
     include Tribes::Questing
+    include Tribes::Reporting
 
     def initialize(options = {})
       @configuration = Configuration.new
