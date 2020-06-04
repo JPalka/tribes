@@ -11,10 +11,18 @@ module Tribes
             hash[link.attr('data-unit')] = link.content.tr('()', '').to_i
           end
         extract_village_overview(data, result)
+        extract_command(doc, result)
         result
       end
 
       private
+
+      def extract_command(doc, result)
+        unitos_cells = doc.css('td[class^="unit-item-"]')
+        result[:units][:away] = unitos_cells.each_with_object({}) do |unit_cell, hash|
+          hash[unit_cell['class'].gsub('unit-item-', '')] = unit_cell.text.to_i
+        end
+      end
 
       def extract_village_overview(data, result)
         own = /(VillageOverview.units\[1\] = )({[^;]*)/.match(data)

@@ -13,6 +13,7 @@ require 'tribes/sites/flags_index'
 require 'tribes/sites/smithy'
 require 'tribes/sites/overview'
 require 'tribes/sites/place_command'
+require 'tribes/sites/info_command'
 
 module Tribes
   module Sites
