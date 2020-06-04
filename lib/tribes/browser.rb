@@ -15,10 +15,13 @@ module Tribes
       set_headers
     end
 
-    def load_page(page_id)
+    def load_page(page_id, **params)
       page = find_page(page_id)
       url_builder = page.url.host(@configuration.game_server)
                         .add_query_param('village', @villages.selected_element[0])
+      params.each do |key, val|
+        url_builder.add_query_param(key, val)
+      end
       load_url(url_builder.url)
       @current_page = page
     end
