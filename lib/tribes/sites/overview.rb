@@ -16,7 +16,7 @@ module Tribes
       private
 
       def set_extractors
-        [Tribes::Extractors::VillageData.new, Tribes::Extractors::UnitCounts.new]
+        [Tribes::Extractors::UnitCounts.new, Tribes::Extractors::Outgoings.new]
       end
     end
   end
