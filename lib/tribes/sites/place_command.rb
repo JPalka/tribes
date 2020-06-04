@@ -54,7 +54,7 @@ module Tribes
       end
 
       def set_extractors
-        @extractors = [Tribes::Extractors::UnitCounts.new]
+        @extractors = [Tribes::Extractors::UnitCounts.new, Tribes::Extractors::Outgoings.new]
       end
     end
   end

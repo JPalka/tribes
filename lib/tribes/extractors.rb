@@ -14,6 +14,7 @@ require 'tribes/extractors/trades_pending'
 require 'tribes/extractors/premium_exchange'
 require 'tribes/extractors/flags'
 require 'tribes/extractors/tech'
+require 'tribes/extractors/outgoings'
 
 module Tribes
   module Extractors
