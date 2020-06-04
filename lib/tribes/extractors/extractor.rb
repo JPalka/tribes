@@ -19,13 +19,13 @@ module Tribes
         regular_res.each do |span|
           resource = {}
           resource[:amount] = span.text.gsub('.', '').to_i
-          resource[:id] = span.css('span.icon').first.classes[2]
+          resource[:id] = span.css('span.icon').first.classes[2] if td.css('span.icon').first
           result[resource[:id]] = resource[:amount] if resource[:amount].positive?
         end
         # handlino premiumo pointes
         resource = {}
         resource[:amount] = td.xpath('text()').text.to_i
-        resource[:id] = td.css('> span.icon').first.classes[2]
+        resource[:id] = td.css('> span.icon').first.classes[2] if td.css('> span.icon').first
         result[resource[:id]] = resource[:amount] if resource[:amount].positive?
         result
       end
