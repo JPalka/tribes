@@ -30,7 +30,7 @@ module Tribes
 
         begin
           error = @browser.find('div.error_box div.content').text
-          raise "Error occured: #{error}"
+          { error: error }
         rescue Capybara::ElementNotFound
           true
         end
@@ -41,7 +41,7 @@ module Tribes
       def find_offer(trade_id)
         @browser.find("input[name='id'][value='#{trade_id}']", visible: false).first(:xpath, './/..')
       rescue Capybara::ElementNotFound
-        raise "Trade offer #{trade_id} not found"
+        { error: "Trade offer #{trade_id} not found" }
       end
 
       def setup(want, offer, time_limit)

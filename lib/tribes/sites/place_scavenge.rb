@@ -15,28 +15,28 @@ module Tribes
       end
 
       def scavenge(units, scavenging_level)
-        raise 'Cannot fill scavenging form' unless fill_scavenge_form(units)
+        return { error: 'Cannot fill scavenging form' } unless fill_scavenge_form(units)
 
         element = ''
         begin
           element = @browser.find(".scavenge-option:nth-of-type(#{scavenging_level}) a.free_send_button")
                             .click
         rescue Capybara::ElementNotFound
-          raise "Cannot send scavenging order level:#{scavenging_level}. Button not found."
+          return { error: "Cannot send scavenging order level:#{scavenging_level}. Button not found." }
         end
         # kill me
         sleep(1)
         # if ok button disappears then everything is ok
-        return if element.inspect == 'Obsolete #<Capybara::Node::Element>'
+        return true if element.inspect == 'Obsolete #<Capybara::Node::Element>'
 
-        raise 'Could not send scavenging order. Button did not work for whatever reason. Not enough units maybe?'
+        { error: 'Could not send scavenging order. Button did not work for whatever reason. Not enough units maybe?' }
       end
 
       def unlock_scavenge(scavenging_level)
         @browser.find(".scavenge-option:nth-of-type(#{scavenging_level}) a.unlock-button").click
         @browser.find('.scavenge-option-unlock-dialog a').click
       rescue Capybara::ElementNotFound
-        raise "Scavenging level: #{scavenging_level} cannot be unlocked"
+        { error: "Scavenging level: #{scavenging_level} cannot be unlocked" }
       end
 
       def set_extractors
