@@ -15,7 +15,7 @@ module Tribes
       end
 
       def scavenge(units, scavenging_level)
-        return { error: 'Cannot fill scavenging form' } unless fill_scavenge_form(units)
+        return { error: 'Cannot fill scavenging form' } unless fill_units_form(units)
 
         element = ''
         begin
@@ -42,24 +42,6 @@ module Tribes
       def set_extractors
         @extractors = [Tribes::Extractors::UnitCounts.new, Tribes::Extractors::ScavengingGroups.new,
                        Tribes::Extractors::VillageData.new]
-      end
-
-      private
-
-      def fill_scavenge_form(units)
-        begin
-          units.each do |unit, count|
-            @browser.find("input[name=#{unit}]").set(count)
-          end
-        rescue Capybara::ElementNotFound
-          clear_scavenge_form
-          return false
-        end
-        true
-      end
-
-      def clear_scavenge_form
-        @browser.all('input').each { |inp| inp.native.clear }
       end
     end
   end
