@@ -37,13 +37,13 @@ module Tribes
     end
 
     def login_to_world
-      throw 'Choose a fucking world' unless @configuration.game_server
+      return { error: 'Choose a fucking world' } unless @configuration.game_server
 
       @session.login_to_world(@browser)
     end
 
     def villages
-      throw 'Not logged in' unless @session.player_id
+      return { error: 'Not logged in' } unless @session.player_id
 
       @village_list.download(@session)
     end
@@ -74,7 +74,7 @@ module Tribes
     end
 
     def prod_building(building_id)
-      throw 'wrong building type.' unless %w[wood iron clay].include?(building_id)
+      return { error: 'wrong building type.' } unless %w[wood iron clay].include?(building_id)
 
       Server.new(ServiceContainer::GET_PROD_BUILDING, @configuration)
             .load([@session.session_id, @village_list.selected_element[0], building_id.to_s])

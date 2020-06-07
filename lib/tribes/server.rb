@@ -25,14 +25,17 @@ module Tribes
         req.body = json_data
       end
       json_response = JSON.parse(response.body)
-      check_errors(json_response)
+      return check_errors(json_response) if check_errors(json_response)
+      
       json_response
     end
 
     def check_errors(data)
-      throw "Error occured woobwoob. Dump:#{data}" if check_error(data)
+      return { error: "Error occured woobwoob. Dump:#{data}" } if check_error(data)
 
-      throw 'Session is invalid' if check_invalid_session(data)
+      return { error: 'Session is invalid' } if check_invalid_session(data)
+
+      false
     end
 
     private
