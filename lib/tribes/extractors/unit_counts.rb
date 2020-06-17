@@ -35,7 +35,7 @@ module Tribes
       end
 
       def map_unit_count(arr)
-        arr.map { |key, val| [key, val['count'].to_i] }.to_h if arr.blank?
+        arr.map { |key, val| val ? [key, val['count'].to_i] : [key, 0] }.to_h unless arr.blank?
       end
 
       def parse_json_var(var)
