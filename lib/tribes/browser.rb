@@ -61,7 +61,7 @@ module Tribes
        Sites::MarketMerchants.new(@browser_session), Sites::MarketPremium.new(@browser_session),
        Sites::FlagsIndex.new(@browser_session), Sites::Smithy.new(@browser_session),
        Sites::Overview.new(@browser_session), Sites::PlaceCommand.new(@browser_session),
-       Sites::InfoCommand.new(@browser_session)]
+       Sites::InfoCommand.new(@browser_session), Sites::UnitInfo.new(@browser_session)]
     end
 
     def set_headers
