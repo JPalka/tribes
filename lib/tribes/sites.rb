@@ -15,6 +15,7 @@ require 'tribes/sites/overview'
 require 'tribes/sites/place_command'
 require 'tribes/sites/info_command'
 require 'tribes/sites/unit_info'
+require 'tribes/sites/building_info'
 
 module Tribes
   module Sites
