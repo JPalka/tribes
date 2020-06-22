@@ -15,7 +15,7 @@ module Tribes
     private
 
     def post_data(session)
-      [session.session_id, @selected_element.to_h['id']]
+      [session.session_id, @selected_element.to_a[0]]
     end
   end
 end
