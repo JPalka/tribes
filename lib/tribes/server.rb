@@ -22,12 +22,17 @@ module Tribes
 
     def load(data)
       json_data = data.to_json
-      response = create_connection(create_url(data)).post do |req|
-        req.body = json_data
-      end
+      conn = create_connection(create_url(data))
+      response = if @service.method == 'POST'
+                   conn.post do |req|
+                     req.body = json_data
+                   end
+                 else
+                   conn.get
+                 end
       json_response = JSON.parse(response.body)
       return check_errors(json_response) if check_errors(json_response)
-      
+
       json_response
     end
 
@@ -60,7 +65,7 @@ module Tribes
     def create_url(data)
       url_builder = Tribes::URLBuilder.new.https
       handle_service_type(url_builder)
-      url_builder.add_query_param('hash', Tribes.calculate_mobile_hash(data)) if data
+      url_builder.add_query_param('hash', Tribes.calculate_mobile_hash(data)) if data && @service.method == 'POST'
       url_builder.service(@service.name)
       url_builder.url
     end
@@ -72,7 +77,7 @@ module Tribes
       when MASTER_SERVER
         builder.host(@configuration.master_server).master_server_api
       when BACKEND
-        builder.host(@configuration.master_server + '/backend/')
+        builder.host(@configuration.master_server + 'backend/')
       else
         throw 'Error. Invalid service server type'
       end
