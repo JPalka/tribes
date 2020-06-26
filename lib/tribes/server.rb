@@ -30,7 +30,12 @@ module Tribes
                  else
                    conn.get
                  end
-      json_response = JSON.parse(response.body)
+      json_response = ''
+      begin
+        json_response = JSON.parse(response.body)
+      rescue JSON::ParserError
+        json_response = response.body
+      end
       return check_errors(json_response) if check_errors(json_response)
 
       json_response
@@ -77,7 +82,7 @@ module Tribes
       when MASTER_SERVER
         builder.host(@configuration.master_server).master_server_api
       when BACKEND
-        builder.host(@configuration.master_server + 'backend/')
+        builder.host(@configuration.master_server + '/backend')
       else
         throw 'Error. Invalid service server type'
       end

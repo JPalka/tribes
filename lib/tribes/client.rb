@@ -48,6 +48,10 @@ module Tribes
       @village_list.download(@session)
     end
 
+    def worlds_global
+      Server.new(ServiceContainer::GET_WORLDS_GLOBAL, @configuration).load('')
+    end
+
     def village_data
       Server.new(ServiceContainer::GET_VILLAGE_DATA, @configuration)
             .load([@session.session_id, @village_list.selected_element[0]])
