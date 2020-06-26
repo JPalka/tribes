@@ -49,7 +49,9 @@ module Tribes
     end
 
     def worlds_global
-      Server.new(ServiceContainer::GET_WORLDS_GLOBAL, @configuration).load('')
+      Tribes::Extractors::Wtf.new.extract(
+        Server.new(ServiceContainer::GET_WORLDS_GLOBAL, @configuration).load('')
+      )
     end
 
     def village_data

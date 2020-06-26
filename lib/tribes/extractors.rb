@@ -15,6 +15,7 @@ require 'tribes/extractors/premium_exchange'
 require 'tribes/extractors/flags'
 require 'tribes/extractors/tech'
 require 'tribes/extractors/outgoings'
+require 'tribes/extractors/wtf'
 
 module Tribes
   module Extractors

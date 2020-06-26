@@ -15,7 +15,8 @@ c = Tribes::Client.new
 
 c.login
 # c.change_world 'en111'
-c.change_world 'en114'
+# c.change_world 'en114'
+c.change_world 'enc2'
 c.login_to_world
 c.villages
 # c.browser.load_page 'place_scavenge'
