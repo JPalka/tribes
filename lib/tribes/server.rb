@@ -4,6 +4,7 @@ module Tribes
   class Server
     MASTER_SERVER = 'master'
     GAME_SERVER = 'game'
+    BACKEND = 'backend'
     PAYMENT_SERVER = 'pay'
     INVALID_BUILDING = 'nvalid building'
     INVALID_ACTION = 'nvalid action'
@@ -70,6 +71,8 @@ module Tribes
         builder.host(@configuration.game_server).game_server_api
       when MASTER_SERVER
         builder.host(@configuration.master_server).master_server_api
+      when BACKEND
+        builder.host(@configuration.master_server + '/backend/')
       else
         throw 'Error. Invalid service server type'
       end

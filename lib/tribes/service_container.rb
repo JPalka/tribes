@@ -35,5 +35,8 @@ module Tribes
     GET_MAP_DATA = DataService.new(Server::GAME_SERVER, 'map', 'POST', false)
     GET_QUEST_LIST = DataService.new(Server::GAME_SERVER, 'quests_list', 'POST', false)
     GET_LOCALIZED_LINK = DataService.new(Server::GAME_SERVER, 'localized_link', 'POST', false)
+
+    # my own 'services' not based on mobile api
+    GET_WORLDS_GLOBAL = DataService.new(Server::BACKEND, 'get_servers.php', 'GET', false)
   end
 end
