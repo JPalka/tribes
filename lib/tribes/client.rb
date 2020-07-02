@@ -86,11 +86,13 @@ module Tribes
             .load([@session.session_id, @village_list.selected_element[0], building_id.to_s])
     end
 
-    def change_world(world_id)
+    def change_world(world_id, world_url: nil)
       new_world = @world_list.select(world_id)
       if new_world
         @configuration.game_server = new_world['url']
         true
+      elsif world_url
+        @configuration.game_server = world_url
       else
         false
       end
