@@ -18,7 +18,7 @@ module Tribes
     def load_page(page_id, **params)
       page = find_page(page_id)
       url_builder = page.url.host(@configuration.game_server)
-                        .add_query_param('village', @villages.selected_element[0])
+      url_builder.add_query_param('village', @villages.selected_element[0]) if @villages.selected_element
       params.each do |key, val|
         url_builder.add_query_param(key, val)
       end
