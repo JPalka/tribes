@@ -15,8 +15,8 @@ c = Tribes::Client.new
 
 c.login
 # c.change_world 'en111'
-# c.change_world 'en114'
-c.change_world 'enc2'
+c.change_world 'en115'
+# c.change_world 'enc2'
 c.login_to_world
 c.villages
 # c.browser.load_page 'place_scavenge'
@@ -27,6 +27,6 @@ c.villages
 # c.browser.load_page 'flags_index'
 # c.browser.load_page 'smithy'
 # c.browser.load_page 'overview'
-c.browser.load_page 'place_command'
+# c.browser.load_page 'place_command'
 binding.pry
 #Pry.start(__FILE__)

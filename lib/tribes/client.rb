@@ -66,7 +66,7 @@ module Tribes
 
     def player_info
       Server.new(ServiceContainer::GET_PLAYER_INFO, @configuration)
-            .load([@session.session_id, @session.player_id])
+            .load([@session.session_id, @session.player_id]).merge({ 'player_id' => @session.player_id })
     end
 
     def heartbeat
